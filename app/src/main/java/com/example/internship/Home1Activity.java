@@ -10,12 +10,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.internship.config.Config;
 
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HomeActivity extends AppCompatActivity implements ProjectAdapter.onListListener {
+public class Home1Activity extends AppCompatActivity implements ProjectAdapter.onListListener {
 
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
@@ -36,17 +34,17 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
     ArrayList<Model> mItems;
     Integer id, access;
     String getDataa;
-    Button logout, intern;
+    Button logout, project;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        pd = new ProgressDialog(HomeActivity.this);
+        pd = new ProgressDialog(Home1Activity.this);
         mItems = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
+        mManager = new LinearLayoutManager(Home1Activity.this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mAdapter = new ProjectAdapter(this, mItems, this);
@@ -66,14 +64,14 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
 
         logout = findViewById(R.id.logout);
         logout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            Intent intent = new Intent(Home1Activity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
 
-        intern = findViewById(R.id.intern);
-        intern.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, Home1Activity.class);
+        project = findViewById(R.id.project);
+        project.setOnClickListener(view -> {
+            Intent intent = new Intent(Home1Activity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });

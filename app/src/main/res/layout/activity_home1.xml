@@ -14,11 +14,11 @@
         android:text="logout" />
 
     <Button
-        android:id="@+id/intern"
-        android:layout_marginLeft="20dp"
+        android:id="@+id/project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Intern"/>
+        android:layout_marginLeft="20dp"
+        android:text="Project" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
