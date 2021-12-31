@@ -43,8 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     public final static String TAG_ID = "id";
     public final static String TAG_ACCESS = "access";
 
-    String tag_json_obj = "json_obj_req";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

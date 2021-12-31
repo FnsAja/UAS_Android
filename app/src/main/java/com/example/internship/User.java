@@ -2,7 +2,30 @@ package com.example.internship;
 
 public class User {
     Integer id;
-    String nama, email, notelp, alamat, aboutme, foto;
+    String nama;
+    String email;
+    String notelp;
+    String alamat;
+    String aboutme;
+    String foto;
+    String divisi;
+    String status;
+
+    public String getDivisi() {
+        return divisi;
+    }
+
+    public void setDivisi(String divisi) {
+        this.divisi = divisi;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;

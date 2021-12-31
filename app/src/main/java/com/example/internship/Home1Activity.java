@@ -25,13 +25,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Home1Activity extends AppCompatActivity implements ProjectAdapter.onListListener {
+public class Home1Activity extends AppCompatActivity implements ProjectAdapter.onListListener, InternAdapter.onListListener {
 
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mManager;
     ProgressDialog pd;
-    ArrayList<Model> mItems;
+    ArrayList<User> mItems;
     Integer id, access;
     String getDataa;
     Button logout, project;
@@ -39,7 +39,7 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home1);
 
         pd = new ProgressDialog(Home1Activity.this);
         mItems = new ArrayList<>();
@@ -47,15 +47,15 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
         mManager = new LinearLayoutManager(Home1Activity.this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mAdapter = new ProjectAdapter(this, mItems, this);
+        mAdapter = new InternAdapter(this, mItems, this);
         mRecyclerView.setAdapter(mAdapter);
 
         Intent x = getIntent();
-        access = x.getIntExtra("access", 0);
         id = x.getIntExtra("id", 0);
+        access = x.getIntExtra("access", 0);
 
         if(access == 1){
-            getDataa = Config.getDataAdm;
+            getDataa = Config.getDataIntern;
         }else {
             getDataa = Config.getDataNonAdm;
         }
@@ -72,8 +72,10 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
         project = findViewById(R.id.project);
         project.setOnClickListener(view -> {
             Intent intent = new Intent(Home1Activity.this, HomeActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("id", id);
+            intent.putExtra("access", access);
             startActivity(intent);
+            finish();
         });
     }
 
@@ -91,14 +93,14 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
                     JSONArray arr = new JSONArray(response);
                     for (int i  = 0; i < arr.length(); i++){
                         JSONObject data = arr.getJSONObject(i);
-                        Model md = new Model();
+                        User usr = new User();
                         // memanggil nama array yang kita buat
-                        if (data.getString("namaproject") != "null"){
-                            md.setNamaProject(data.getString("namaproject"));
-                            md.setJumlahMember(data.getString("jumlah"));
-                            mItems.add(md);
-                        }
+                        usr.setNama(data.getString("nama"));
+                        usr.setDivisi(data.getString("divisi"));
+                        usr.setEmail(data.getString("email"));
+                        mItems.add(usr);
                     }
+                    mAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -124,9 +126,8 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
 
     @Override
     public void onListClick(int position) {
-        Intent intent = new Intent(HomeActivity.this, DetailActivityProject.class);
+        Intent intent = new Intent(Home1Activity.this, DetailActivityIntern.class);
         intent.putExtra("id", id);
-        intent.putExtra("idproj", position + 1);
         intent.putExtra("access", access);
         startActivity(intent);
     }

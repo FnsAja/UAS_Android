@@ -53,8 +53,8 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
         mRecyclerView.setAdapter(mAdapter);
 
         Intent x = getIntent();
-        access = x.getIntExtra("access", 0);
         id = x.getIntExtra("id", 0);
+        access = x.getIntExtra("access", 0);
 
         if(access == 1){
             getDataa = Config.getDataAdm;
@@ -74,8 +74,10 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
         intern = findViewById(R.id.intern);
         intern.setOnClickListener(view -> {
             Intent intent = new Intent(HomeActivity.this, Home1Activity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("id", id);
+            intent.putExtra("access", access);
             startActivity(intent);
+            finish();
         });
     }
 
@@ -101,6 +103,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
                             mItems.add(md);
                         }
                     }
+                    mAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

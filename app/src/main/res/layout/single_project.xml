@@ -29,19 +29,19 @@
             android:text="Nama Project"
             android:layout_marginBottom="6dp"/>
 
-<!--        <TextView-->
-<!--            android:id="@+id/address"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="14sp"-->
-<!--            android:text="Deskripsi Project"-->
-<!--            android:layout_marginBottom="6dp"/>-->
-
         <TextView
-            android:id="@+id/count"
+            android:id="@+id/div"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Banyak Member"
+            android:textSize="14sp"
+            android:text="Divisi"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
             android:textSize="14sp"/>
     </LinearLayout>
 </LinearLayout>

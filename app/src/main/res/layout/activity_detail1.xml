@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
-    tools:context=".DetailActivityProject">
+    tools:context=".DetailActivityIntern">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -62,6 +62,14 @@
                     android:layout_marginBottom="10dp"
                     android:textSize="14sp"
                     android:text="About Me"/>
+
+                <TextView
+                    android:id="@+id/textViewNamaProjectIntern"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="14sp"
+                    android:text="Project yang dikerjakan"/>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

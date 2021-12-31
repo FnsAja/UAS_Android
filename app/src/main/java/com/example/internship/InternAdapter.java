@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,31 +11,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewProcessHolder> {
-
+public class InternAdapter extends RecyclerView.Adapter<InternAdapter.ViewProcessHolder>{
     Context context;
-    private ArrayList<Model> item;
-    onListListener mOnListListener;
+    private ArrayList<User> item;
+    InternAdapter.onListListener mOnListListener;
 
-    public ProjectAdapter(Context context, ArrayList<Model> item, onListListener onListListener) {
+    public InternAdapter(Context context, ArrayList<User> item, InternAdapter.onListListener onListListener) {
         this.context = context;
         this.item = item;
         this.mOnListListener = onListListener;
     }
 
     @Override
-    public ViewProcessHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public InternAdapter.ViewProcessHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_project, parent, false);
-        ViewProcessHolder processHolder = new ViewProcessHolder(view, mOnListListener);
+        InternAdapter.ViewProcessHolder processHolder = new InternAdapter.ViewProcessHolder(view, mOnListListener);
         return processHolder;
     }
 
     @Override
-    public void onBindViewHolder(ViewProcessHolder holder, int position) {
+    public void onBindViewHolder(InternAdapter.ViewProcessHolder holder, int position) {
 
-        final Model data = item.get(position);
-        holder.nama_data.setText(data.getNamaProject());
-        holder.jumlah_data.setText(data.getJumlahMember());
+        final User data = item.get(position);
+        holder.nama_data.setText(data.getNama());
+        holder.divisi_data.setText(data.getDivisi());
+        holder.email_data.setText(data.getEmail());
     }
 
     @Override
@@ -46,12 +45,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewProc
 
     public class ViewProcessHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView nama_data, jumlah_data;
-        onListListener onListListener;
-        public ViewProcessHolder(@NonNull View itemView, onListListener onListListener) {
+        TextView nama_data, divisi_data, email_data;
+        InternAdapter.onListListener onListListener;
+        public ViewProcessHolder(@NonNull View itemView, InternAdapter.onListListener onListListener) {
             super(itemView);
             nama_data = (TextView) itemView.findViewById(R.id.name);
-            jumlah_data = (TextView) itemView.findViewById(R.id.count);
+            divisi_data = (TextView) itemView.findViewById(R.id.div);
+            email_data = (TextView) itemView.findViewById(R.id.email);
             this.onListListener = onListListener;
 
             itemView.setOnClickListener(this);
