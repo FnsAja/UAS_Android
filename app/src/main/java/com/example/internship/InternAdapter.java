@@ -24,7 +24,7 @@ public class InternAdapter extends RecyclerView.Adapter<InternAdapter.ViewProces
 
     @Override
     public InternAdapter.ViewProcessHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_project, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_intern, parent, false);
         InternAdapter.ViewProcessHolder processHolder = new InternAdapter.ViewProcessHolder(view, mOnListListener);
         return processHolder;
     }

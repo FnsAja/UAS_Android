@@ -27,7 +27,6 @@ import java.util.Map;
 
 public class DetailActivityProject extends AppCompatActivity {
 
-    Context context;
     ArrayList<Model> mItems;
     ProgressDialog pd;
     Integer id, idProj, access;

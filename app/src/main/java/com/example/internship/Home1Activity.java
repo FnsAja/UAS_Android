@@ -53,11 +53,11 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
         Intent x = getIntent();
         id = x.getIntExtra("id", 0);
         access = x.getIntExtra("access", 0);
-
+        Log.d("ID + ACCESS : ", "ID " + id + "ACCESS" + access);
         if(access == 1){
             getDataa = Config.getDataIntern;
         }else {
-            getDataa = Config.getDataNonAdm;
+            getDataa = Config.getDataInternNonAdm;
         }
 
         loadjson();
@@ -128,6 +128,7 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
     public void onListClick(int position) {
         Intent intent = new Intent(Home1Activity.this, DetailActivityIntern.class);
         intent.putExtra("id", id);
+        intent.putExtra("idintern", position + 1);
         intent.putExtra("access", access);
         startActivity(intent);
     }
