@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import com.android.volley.Request;
@@ -34,7 +35,7 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
     ArrayList<User> mItems;
     Integer id, access;
     String getDataa;
-    Button logout, project;
+    Button logout, project, admin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,25 +54,36 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
         Intent x = getIntent();
         id = x.getIntExtra("id", 0);
         access = x.getIntExtra("access", 0);
-        Log.d("ID + ACCESS : ", "ID " + id + "ACCESS" + access);
+
+        logout = findViewById(R.id.logout);
+        project = findViewById(R.id.project);
+        admin = findViewById(R.id.admin);
+
         if(access == 1){
             getDataa = Config.getDataIntern;
         }else {
             getDataa = Config.getDataInternNonAdm;
+            admin.setVisibility(View.INVISIBLE);
         }
 
         loadjson();
 
-        logout = findViewById(R.id.logout);
         logout.setOnClickListener(view -> {
             Intent intent = new Intent(Home1Activity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
 
-        project = findViewById(R.id.project);
         project.setOnClickListener(view -> {
             Intent intent = new Intent(Home1Activity.this, HomeActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("access", access);
+            startActivity(intent);
+            finish();
+        });
+
+        admin.setOnClickListener(view -> {
+            Intent intent = new Intent(Home1Activity.this, Home2Activity.class);
             intent.putExtra("id", id);
             intent.putExtra("access", access);
             startActivity(intent);

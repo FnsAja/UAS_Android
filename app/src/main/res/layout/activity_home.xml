@@ -15,10 +15,18 @@
 
     <Button
         android:id="@+id/intern"
-        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Intern"/>
+        android:layout_marginLeft="20dp"
+        android:text="Intern" />
+
+    <Button
+        android:id="@+id/admin"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
