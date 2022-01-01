@@ -67,7 +67,7 @@ public class DetailActivityIntern extends AppCompatActivity {
                     String temp = "";
 
                     for(int i = 0; i < arr.length(); i++){
-                        JSONObject data = arr.getJSONObject(0);
+                        JSONObject data = arr.getJSONObject(i);
                         nama.setText("Nama\t: " + data.getString("nama"));
                         email.setText("E-mail\t: " + data.getString("email"));
                         notelp.setText("NoTelp\t: " + data.getString("notelp"));

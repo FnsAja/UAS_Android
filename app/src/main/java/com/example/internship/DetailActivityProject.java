@@ -45,7 +45,6 @@ public class DetailActivityProject extends AppCompatActivity {
         Intent x = getIntent();
         id = x.getIntExtra("id", 0);
         idProj = x.getIntExtra("idproj", -1);
-        Log.d("IDPROJECT", "ID PROJECT : " + idProj);
         access = x.getIntExtra("access", 0);
 
         if(access == 1){
