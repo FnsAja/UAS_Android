@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2021 at 11:46 AM
+-- Generation Time: Jan 01, 2022 at 10:21 AM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- PHP Version: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -62,9 +62,12 @@ CREATE TABLE `userpro` (
 --
 
 INSERT INTO `userpro` (`idrelasi`, `idproject`, `iduser`, `jobdesk`) VALUES
-(1, 1, 2, 'Capek'),
-(2, 2, 12, ''),
-(3, 3, 6, '');
+(2, 2, 12, 'Capek 1'),
+(3, 3, 6, 'Capek 2'),
+(4, 1, 3, 'Capek 3'),
+(5, 2, 5, 'Capek 4'),
+(6, 2, 2, 'Nyoba'),
+(7, 3, 2, 'Nyoba 1');
 
 -- --------------------------------------------------------
 
@@ -78,7 +81,7 @@ CREATE TABLE `users` (
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `alamat` text NOT NULL,
-  `e-mail` text NOT NULL,
+  `email` text NOT NULL,
   `notelp` text NOT NULL,
   `divisi` text NOT NULL,
   `status` text NOT NULL,
@@ -90,7 +93,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `nama`, `username`, `password`, `alamat`, `e-mail`, `notelp`, `divisi`, `status`, `about`, `foto`) VALUES
+INSERT INTO `users` (`id`, `nama`, `username`, `password`, `alamat`, `email`, `notelp`, `divisi`, `status`, `about`, `foto`) VALUES
 (1, 'Sipalingadmin', 'admin', 'admin123', 'tangerang kota', 'admin@xyz.com', '081232949506', 'admin', 'Karyawan Tetap', '', ''),
 (2, 'Filbert Amadea Shan Noel', 'filbertxamadea', 'filbert321', 'Regensi Tangerang Poris 2', 'filbertxamadea@gmail.com', '0823234354654', 'IT Web', 'Magang', 'Saya Filbert Amadea, saya pekerja yang penuh tanggung jawab, dan perfeksionis', ''),
 (3, 'DonixWawan', 'doniawan', 'doni123', 'Pantai mutiara', 'doniwan@gmail.com', '082345211234', 'IT Web', 'Magang', 'Saya Doni Awan, saya pekerja yang jujur dan sangat menjunjung ketepatan waktu', ''),
@@ -136,7 +139,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `userpro`
 --
 ALTER TABLE `userpro`
-  MODIFY `idrelasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idrelasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
