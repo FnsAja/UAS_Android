@@ -74,9 +74,9 @@ public class DetailActivityProject extends AppCompatActivity {
                         JSONObject data = arr.getJSONObject(i);
                         nama.setText(data.getString("namaproj"));
                         temp1 += data.getString("namaintern") + "\n Jobdesc :  " + data.getString("jobdesc") + "\n";
+                        deskripsi.setText(data.getString("deskripsi"));
                     }
                     namaIntern.setText(temp1);
-                    deskripsi.setText("deskripsi");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

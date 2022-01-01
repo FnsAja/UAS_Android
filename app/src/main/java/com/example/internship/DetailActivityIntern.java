@@ -64,14 +64,18 @@ public class DetailActivityIntern extends AppCompatActivity {
                 Log.d("Detail", "response : " + response);
                 try {
                     JSONArray arr = new JSONArray(response);
-                    JSONObject data = arr.getJSONObject(0);
+                    String temp = "";
 
-                    nama.setText("Nama\t: " + data.getString("nama"));
-                    email.setText("E-mail\t: " + data.getString("email"));
-                    notelp.setText("NoTelp\t: " + data.getString("notelp"));
-                    alamat.setText("Alamat\t: " + data.getString("alamat"));
-                    aboutme.setText("About Me\t: " + data.getString("about"));
-                    project.setText("Project\t: - " + data.getString("namaproject"));
+                    for(int i = 0; i < arr.length(); i++){
+                        JSONObject data = arr.getJSONObject(0);
+                        nama.setText("Nama\t: " + data.getString("nama"));
+                        email.setText("E-mail\t: " + data.getString("email"));
+                        notelp.setText("NoTelp\t: " + data.getString("notelp"));
+                        alamat.setText("Alamat\t: " + data.getString("alamat"));
+                        aboutme.setText("About Me\t: " + data.getString("about"));
+                        temp += "\n" + data.getString("namaproject");
+                    }
+                    project.setText("Project\t: " + temp);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
