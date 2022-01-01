@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
     RecyclerView.LayoutManager mManager;
     ProgressDialog pd;
     ArrayList<Model> mItems;
-    Integer id, access;
+    Integer id, access, idProj;
     String getDataa;
     Button logout, intern, admin;
 
@@ -110,8 +110,8 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
                         Model md = new Model();
                         // memanggil nama array yang kita buat
                         if (data.getString("namaproject") != "null"){
-                            md.setNamaProject(data.getString("namaproject"));
                             md.setJumlahMember(data.getString("jumlah"));
+                            md.setNamaProject(data.getString("namaproject"));
                             mItems.add(md);
                         }
                     }
