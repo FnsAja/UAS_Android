@@ -1,7 +1,7 @@
 <?php 
 require_once('koneksi.php');
 
-$query = "SELECT COUNT(users.id) as jumlah, projects.namaproject FROM users JOIN userpro ON users.id = userpro.iduser JOIN projects ON projects.idproject = userpro.idproject GROUP BY projects.idproject;";
+$query = "SELECT projects.idproject, COUNT(users.id) as jumlah, projects.namaproject FROM users JOIN userpro ON users.id = userpro.iduser JOIN projects ON projects.idproject = userpro.idproject GROUP BY projects.idproject;";
 
 $res = mysqli_query($con, $query);
 

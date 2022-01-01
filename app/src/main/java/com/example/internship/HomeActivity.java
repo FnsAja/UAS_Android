@@ -115,7 +115,10 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
                             md.setNamaProject(data.getString("namaproject"));
                             mItems.add(md);
                         }
-                        idProj.add(data.getInt("idproject"));
+                        if (access == 0){
+                            idProj.add(data.getInt("idproject"));
+                        }
+
                     }
                     mAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
@@ -145,7 +148,9 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
     public void onListClick(int position) {
         Intent intent = new Intent(HomeActivity.this, DetailActivityProject.class);
         intent.putExtra("id", id);
-        intent.putExtra("idproj", idProj.get(position));
+        intent.putExtra("idproj", position + 1);
+        if (access == 0)
+            intent.putExtra("idproj", idProj.get(position));
         intent.putExtra("access", access);
         startActivity(intent);
     }

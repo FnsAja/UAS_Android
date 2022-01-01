@@ -3,7 +3,7 @@ require_once('koneksi.php');
 
 $idproj = $_POST["idproj"];
 
-$query = "SELECT projects.namaproject as namaproj, users.nama as namaintern, userpro.jobdesk as jobdesc from projects JOIN userpro ON userpro.idproject = projects.idproject JOIN users ON users.id = userpro.iduser WHERE projects.idproject = '$idproj'";
+$query = "SELECT projects.namaproject as namaproj, users.nama as namaintern, userpro.jobdesk as jobdesc, projects.descpro as deskripsi from projects JOIN userpro ON userpro.idproject = projects.idproject JOIN users ON users.id = userpro.iduser WHERE projects.idproject = '$idproj'";
 
 $res = mysqli_query($con, $query);
 
