@@ -1,7 +1,9 @@
 <?php 
 require_once('koneksi.php');
 
-$query = "SELECT * FROM users";
+$iduser = $_POST['iduser'];
+
+$query = "SELECT * FROM users WHERE id = '$iduser'";
 
 $res = mysqli_query($con, $query);
 
