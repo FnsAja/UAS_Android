@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:fontFamily="@font/nunito_bold"
         android:text="Intern" />
 
     <Button
@@ -30,9 +31,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_below="@id/logout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/logout"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         tools:listitem="@layout/single_project" />

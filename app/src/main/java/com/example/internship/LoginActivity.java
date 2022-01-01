@@ -106,7 +106,6 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(),
                                 jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-
                     }
                 } catch (JSONException e) {
                     // JSON error
@@ -121,7 +120,6 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e(TAG, "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-
                 hideDialog();
             }
         }){
@@ -134,9 +132,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 return params;
             }
-
         };
-
         // Adding request to request queue
         Controller.getInstance().addToRequestQueue(strReq);
     }
