@@ -179,7 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        intent = new Intent(RegisterActivity.this, Home2Activity.class);
         finish();
         startActivity(intent);
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2022 at 10:21 AM
+-- Generation Time: Jan 02, 2022 at 06:33 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -67,7 +67,8 @@ INSERT INTO `userpro` (`idrelasi`, `idproject`, `iduser`, `jobdesk`) VALUES
 (4, 1, 3, 'Capek 3'),
 (5, 2, 5, 'Capek 4'),
 (6, 2, 2, 'Nyoba'),
-(7, 3, 2, 'Nyoba 1');
+(7, 3, 2, 'Nyoba 1'),
+(8, 1, 6, 'HEHEHE');
 
 -- --------------------------------------------------------
 
@@ -139,7 +140,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `userpro`
 --
 ALTER TABLE `userpro`
-  MODIFY `idrelasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idrelasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`

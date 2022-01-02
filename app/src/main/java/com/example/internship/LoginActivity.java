@@ -150,9 +150,4 @@ public class LoginActivity extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
-
-    public void onClick(View view) {
-        intent = new Intent(LoginActivity.this, RegisterActivity.class);
-        startActivity(intent);
-    }
 }

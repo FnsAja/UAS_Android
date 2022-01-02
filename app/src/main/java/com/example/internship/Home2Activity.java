@@ -13,8 +13,7 @@ import com.example.internship.config.Config;
 public class Home2Activity extends AppCompatActivity {
 
     Integer id, access;
-    String getDataa;
-    Button logout, intern, project;
+    Button logout, intern, project, addIntern, addProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +27,8 @@ public class Home2Activity extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         intern = findViewById(R.id.intern);
         project = findViewById(R.id.project);
+        addIntern = findViewById(R.id.btn_addIntern);
+        addProject = findViewById(R.id.btn_addProject);
 
         logout.setOnClickListener(view -> {
             Intent intent = new Intent(Home2Activity.this, LoginActivity.class);
@@ -49,6 +50,20 @@ public class Home2Activity extends AppCompatActivity {
             intent.putExtra("access", access);
             startActivity(intent);
             finish();
+        });
+
+        addIntern.setOnClickListener(view -> {
+            Intent intent = new Intent(Home2Activity.this, RegisterActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("access", access);
+            startActivity(intent);
+        });
+
+        addProject.setOnClickListener(view -> {
+            Intent intent = new Intent(Home2Activity.this, RegisterProject.class);
+            intent.putExtra("id", id);
+            intent.putExtra("access", access);
+            startActivity(intent);
         });
     }
 }
