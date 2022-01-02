@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -32,19 +31,12 @@ public class RegisterActivity extends AppCompatActivity {
     Button btn_register;
     EditText txt_division, txt_phone, txt_address, txt_fullname, txt_email, txt_username, txt_password, txt_confirm_password;
     Spinner txt_status;
-    Intent intent;
-
-    int success;
+    Integer success, id, access;
     ConnectivityManager conMgr;
 
-    private String url = Config.registerPhp;
-
     private static final String TAG = RegisterActivity.class.getSimpleName();
-
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
-
-    String tag_json_obj = "json_obj_req";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +53,10 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         }
+
+        Intent x = getIntent();
+        id = x.getIntExtra("id", 0);
+        access = x.getIntExtra("access", 0);
 
         btn_register = (Button) findViewById(R.id.regist_btn_register);
         txt_fullname = (EditText) findViewById(R.id.regist_fullname_text);
@@ -101,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
         pDialog.setMessage("Register ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Request.Method.POST, Config.registerPhp, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e(TAG, "Register Response: " + response.toString());
@@ -118,9 +114,11 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
 
-                        intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        finish();
+                        Intent intent = new Intent(RegisterActivity.this, Home2Activity.class);
+                        intent.putExtra("id", id);
+                        intent.putExtra("access", access);
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(getApplicationContext(),
                                 jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
@@ -176,11 +174,5 @@ public class RegisterActivity extends AppCompatActivity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
-    }
-
-    public void onClick(View view) {
-        intent = new Intent(RegisterActivity.this, Home2Activity.class);
-        finish();
-        startActivity(intent);
     }
 }

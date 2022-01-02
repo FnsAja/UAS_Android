@@ -111,7 +111,7 @@ public class RegisterProject extends AppCompatActivity {
                 if (conMgr.getActiveNetworkInfo() != null
                         && conMgr.getActiveNetworkInfo().isAvailable()
                         && conMgr.getActiveNetworkInfo().isConnected()) {
-                    checkRegister(ProjName, ProjDesc, afterformat.format(localDate1).toString(), afterformat.format(localDate2).toString());
+                    checkRegister(ProjName, ProjDesc, afterformat.format(localDate1), afterformat.format(localDate2));
                 } else {
                     Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
                 }

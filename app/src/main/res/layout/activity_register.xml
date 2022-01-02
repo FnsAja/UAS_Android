@@ -157,15 +157,6 @@
                 android:layout_marginTop="40sp"
                 android:text="Register" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:onClick="onClick"
-                android:clickable="true"
-                android:text="Already Have an Account? Login Here!" />
-
         </LinearLayout>
     </ScrollView>
 
