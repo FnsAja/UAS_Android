@@ -1,7 +1,7 @@
 <?php 
 require_once('koneksi.php');
 
-$query = "SELECT * FROM users";
+$query = "SELECT * FROM users JOIN userpro ON users.id = userpro.iduser";
 
 $res = mysqli_query($con, $query);
 

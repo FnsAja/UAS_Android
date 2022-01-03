@@ -2,18 +2,10 @@ package com.example.internship;
 
 public class Model {
     Integer id;
-    String namaProject, jumlahMember, namaIntern, jobDesc, deskripsi;
+    String namaProject, jumlahMember, namaIntern, jobDesc;
 
     public String getJumlahMember() {
         return jumlahMember;
-    }
-
-    public String getDeskripsi() {
-        return deskripsi;
-    }
-
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
     }
 
     public void setJumlahMember(String jumlahMember) {

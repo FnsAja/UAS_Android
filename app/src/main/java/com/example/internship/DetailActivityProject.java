@@ -1,5 +1,7 @@
 package com.example.internship;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -31,7 +33,7 @@ public class DetailActivityProject extends AppCompatActivity {
     ProgressDialog pd;
     Integer id, idProj, access;
     String getDataa;
-    TextView nama, namaIntern, deskripsi;
+    TextView nama, deskripsi, startDate, endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class DetailActivityProject extends AppCompatActivity {
         StringRequest arrayRequest = new StringRequest(Request.Method.POST, getDataa, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e(TAG, "Login Response: " + response.toString());
                 pd.cancel();
                 Log.d("Detail", "response : " + response);
                 try {
@@ -72,10 +75,10 @@ public class DetailActivityProject extends AppCompatActivity {
                     for (int i = 0; i < arr.length(); i++){
                         JSONObject data = arr.getJSONObject(i);
                         nama.setText(data.getString("namaproj"));
-                        temp1 += data.getString("namaintern") + "\n Jobdesc :  " + data.getString("jobdesc") + "\n";
-                        deskripsi.setText(data.getString("deskripsi"));
+                        startDate.setText(data.getString("startdate"));
+                        endDate.setText(data.getString("enddate"));
+                        deskripsi.setText(data.getString("descpro"));
                     }
-                    namaIntern.setText(temp1);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -102,7 +105,8 @@ public class DetailActivityProject extends AppCompatActivity {
 
     private void init(){
         nama = findViewById(R.id.textViewNamaProject);
-        namaIntern = findViewById(R.id.textViewNamaInternProject);
-        deskripsi = findViewById(R.id.textViewDeskripsi);
+        startDate = findViewById(R.id.startDate);
+        endDate = findViewById(R.id.endDate);
+        deskripsi = findViewById(R.id.projectDescription);
     }
 }

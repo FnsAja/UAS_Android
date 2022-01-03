@@ -7,9 +7,16 @@
     android:scrollbars="vertical"
     tools:context=".DetailActivityProject">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/Unset_Grey"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,29 +37,89 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:textSize="30sp"
-                    android:textStyle="bold"
-                    android:text="INI NAMA PROJECT"/>
+                    android:fontFamily="@font/nunito_bold"
+                    android:textColor="@color/black"
+                    android:text="Build Colony on Mars"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Intern"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textViewNamaInternProject"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Jobdesc"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textViewDeskripsi"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/nunito_semibold"
+                            android:textColor="@color/black"
+                            android:text="Start Date :"/>
+                        <TextView
+                            android:id="@+id/startDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/nunito"
+                            android:textColor="@color/black"
+                            android:text="1 Desember 2021"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="50dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/nunito_semibold"
+                            android:textColor="@color/black"
+                            android:text="End Date :"/>
+                        <TextView
+                            android:id="@+id/endDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/nunito"
+                            android:textColor="@color/black"
+                            android:text="1 Desember 2021"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/nunito"
+                    android:textColor="@color/black"
+                    android:text="Project Description :"/>
+
+                <TextView
+                    android:id="@+id/projectDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Deskripsi"/>
+                    android:fontFamily="@font/nunito"
+                    android:textColor="@color/black"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed sit vulputate nibh nulla nunc, purus in platea. Eu in lectus vel diam, euismod. Auctor lorem tempor, viverra arcu blandit. Felis id malesuada vulputate dolor. Luctus quis amet quis ut non vulputate arcu id. Orci dui faucibus imperdiet mi viverra pulvinar. :"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/nunito"
+                    android:textColor="@color/black"
+                    android:text="Interns Who's Working on It :"/>
+
+
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

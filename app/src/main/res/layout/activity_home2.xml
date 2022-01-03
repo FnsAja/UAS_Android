@@ -33,9 +33,9 @@
         android:id="@+id/btn_addIntern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Intern"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"/>
+        android:layout_marginTop="200dp"
+        android:text="Add Intern" />
 
     <Button
         android:id="@+id/btn_addProject"

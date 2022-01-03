@@ -1,5 +1,6 @@
 package com.example.internship;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.internship.config.Config;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,15 +38,41 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
     RecyclerView.LayoutManager mManager;
     ProgressDialog pd;
     ArrayList<Model> mItems;
-    ArrayList<Integer> idProj = new ArrayList<>();
     Integer id, access;
     String getDataa;
-    Button logout, intern, admin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //bottom navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        //set selected nav
+        bottomNavigationView.setSelectedItemId(R.id.project);
+        //navigation onclick
+        //noinspection deprecation
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.project:
+                        return true;
+                    case R.id.intern:
+                        Intent intent = new Intent(HomeActivity.this, Home1Activity.class);
+                        intent.putExtra("id", id);
+                        intent.putExtra("access", access);
+                        overridePendingTransition(0,0);
+                        startActivity(intent);
+                        return true;
+                    case R.id.logout:
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
         pd = new ProgressDialog(HomeActivity.this);
         mItems = new ArrayList<>();
@@ -58,40 +87,13 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
         id = x.getIntExtra("id", 0);
         access = x.getIntExtra("access", 0);
 
-        logout = findViewById(R.id.logout);
-        intern = findViewById(R.id.intern);
-        admin = findViewById(R.id.admin);
-
         if(access == 1){
             getDataa = Config.getDataAdm;
         }else {
             getDataa = Config.getDataNonAdm;
-            admin.setVisibility(View.INVISIBLE);
         }
 
         loadjson();
-
-        logout.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
-        intern.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, Home1Activity.class);
-            intent.putExtra("id", id);
-            intent.putExtra("access", access);
-            startActivity(intent);
-            finish();
-        });
-
-        admin.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, Home2Activity.class);
-            intent.putExtra("id", id);
-            intent.putExtra("access", access);
-            startActivity(intent);
-            finish();
-        });
     }
 
     private void loadjson(){
@@ -111,14 +113,10 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
                         Model md = new Model();
                         // memanggil nama array yang kita buat
                         if (data.getString("namaproject") != "null"){
-                            md.setJumlahMember(data.getString("jumlah"));
                             md.setNamaProject(data.getString("namaproject"));
+                            md.setJumlahMember(data.getString("jumlah"));
                             mItems.add(md);
                         }
-                        if (access == 0){
-                            idProj.add(data.getInt("idproject"));
-                        }
-
                     }
                     mAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
@@ -149,8 +147,6 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
         Intent intent = new Intent(HomeActivity.this, DetailActivityProject.class);
         intent.putExtra("id", id);
         intent.putExtra("idproj", position + 1);
-        if (access == 0)
-            intent.putExtra("idproj", idProj.get(position));
         intent.putExtra("access", access);
         startActivity(intent);
     }

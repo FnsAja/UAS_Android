@@ -25,7 +25,6 @@ if ((empty($fullname)) || (empty($username)) || (empty($password)) || (empty($ad
     $response->message = "Konfirmasi password harus sama";
 	die(json_encode($response));
 } else {
-	//TODO REGEX
 	if (!empty($username) && $password == $confirm_password){
 		$num_rows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM users WHERE username='".$username."'"));
 
