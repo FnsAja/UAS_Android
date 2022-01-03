@@ -145,7 +145,7 @@ public class RegisterProject extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
 
-                        Intent intent = new Intent(RegisterProject.this, Home2Activity.class);
+                        Intent intent = new Intent(RegisterProject.this, RegisterProject1.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
                         startActivity(intent);
