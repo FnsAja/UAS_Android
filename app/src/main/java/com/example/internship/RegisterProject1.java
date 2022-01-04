@@ -73,7 +73,7 @@ public class RegisterProject1 extends AppCompatActivity {
             if (connectivityManager.getActiveNetworkInfo() != null
                     && connectivityManager.getActiveNetworkInfo().isAvailable()
                     && connectivityManager.getActiveNetworkInfo().isConnected()) {
-                checkRegister(idIntern.toString(), jobdesc);
+                checkAdd(idIntern.toString(), jobdesc);
             } else {
                 Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
             }
@@ -126,7 +126,7 @@ public class RegisterProject1 extends AppCompatActivity {
         Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
-    private void checkRegister(final String idIntern, final String JobDesc) {
+    private void checkAdd(final String idIntern, final String JobDesc) {
         progressDialog.setMessage("Adding Project ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
