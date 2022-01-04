@@ -135,19 +135,19 @@ public class DetailActivityIntern extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST, Config.deleteIntern, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.deleteIntern, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.cancel();
                 try {
                     //mengambil data dalam bentuk json object
-                    JSONObject jObj = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response);
 
                     //success disini merupakan TAG pembeda antara operasi yang sukses atau tidak
                     //jika 1 maka operasi sukses, jika 0 maka gagal
-                    Integer success = jObj.getInt(TAG_SUCCESS);
+                    Integer success = jsonObject.getInt(TAG_SUCCESS);
                     if (success == 1) {
-                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), jsonObject.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(DetailActivityIntern.this, Home1Activity.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
@@ -155,7 +155,7 @@ public class DetailActivityIntern extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         //disini ditampilkan message kegagalan
-                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), jsonObject.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     // JSON exception
@@ -180,7 +180,7 @@ public class DetailActivityIntern extends AppCompatActivity {
             }
         };
         //menambahkan ke request queue untuk dipost ke alamat php yang dituju
-        Controller.getInstance().addToRequestQueue(strReq);
+        Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
     private void init(){

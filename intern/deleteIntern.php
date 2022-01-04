@@ -24,12 +24,12 @@ if ((empty($idintern))){
 					$query = mysqli_query($con, "DELETE FROM users WHERE id = '$idintern'");
 					if($query){
 						$response->success = 1;
-						$response->message2 = "Berhasil Menghapus User";
+						$response->message = "Berhasil Menghapus User";
 						die(json_encode($response));
 					}
 				} else {
 					$response->success = 0;
-					$response->message2 = "User Tidak Terhapus";
+					$response->message = "User Tidak Terhapus";
 					die(json_encode($response));
 				}
 			} else{
@@ -46,12 +46,12 @@ if ((empty($idintern))){
 				$query = mysqli_query($con, "DELETE FROM users WHERE id = '$idintern'");
 				if($query){
 					$response->success = 1;
-					$response->message2 = "Berhasil Menghapus User";
+					$response->message = "Berhasil Menghapus User";
 					die(json_encode($response));
 				}
 			} else {
 				$response->success = 0;
-				$response->message2 = "User Tidak Terhapus";
+				$response->message = "User Tidak Terhapus";
 				die(json_encode($response));
 			}
         }	

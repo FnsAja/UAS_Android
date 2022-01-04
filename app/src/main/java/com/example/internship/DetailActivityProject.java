@@ -37,7 +37,7 @@ public class DetailActivityProject extends AppCompatActivity {
 
     private static final String TAG_ERROR = "error";
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_MESSAGE = "message2";
+    private static final String TAG_MESSAGE = "message";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,19 +131,19 @@ public class DetailActivityProject extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST, Config.deleteProject, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.deleteProject, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.cancel();
                 try {
                     //mengambil data dalam bentuk json object
-                    JSONObject jObj = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response);
 
                     //success disini merupakan TAG pembeda antara operasi yang sukses atau tidak
                     //jika 1 maka operasi sukses, jika 0 maka gagal
-                    Integer success = jObj.getInt(TAG_SUCCESS);
+                    Integer success = jsonObject.getInt(TAG_SUCCESS);
                     if (success == 1) {
-                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), jsonObject.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(DetailActivityProject.this, HomeActivity.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
@@ -151,7 +151,7 @@ public class DetailActivityProject extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         //disini ditampilkan message kegagalan
-                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), jsonObject.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     // JSON exception
@@ -177,7 +177,7 @@ public class DetailActivityProject extends AppCompatActivity {
             }
         };
         //menambahkan ke request queue untuk dipost ke alamat php yang dituju
-        Controller.getInstance().addToRequestQueue(strReq);
+        Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
     private void init(){

@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest arrayRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.cancel();
@@ -139,7 +139,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
             }
         };
         //menambahkan ke request queue untuk dipost ke alamat php yang dituju
-        Controller.getInstance().addToRequestQueue(arrayRequest);
+        Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
     @Override
