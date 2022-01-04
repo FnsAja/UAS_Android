@@ -36,16 +36,16 @@ import java.util.Map;
 
 public class RegisterProject1 extends AppCompatActivity {
 
-    Integer id, access, success;
-    Spinner spinner;
+    ConnectivityManager connectivityManager;
+    ProgressDialog progressDialog;
     ArrayList<String> internName = new ArrayList<>();
     Button btn_register, btn_complete;
     EditText jobDesc;
-    ProgressDialog pDialog;
-    ConnectivityManager conMgr;
+    Spinner spinner;
+    String jobdesc;
+    Integer id, access, idIntern;
 
-    private static final String TAG = RegisterProject.class.getSimpleName();
-
+    private static final String TAG_ERROR = "error";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 
@@ -54,42 +54,28 @@ public class RegisterProject1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_project1);
 
-        conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        {
-            if (conMgr.getActiveNetworkInfo() != null
-                    && conMgr.getActiveNetworkInfo().isAvailable()
-                    && conMgr.getActiveNetworkInfo().isConnected()) {
-            } else {
-                Toast.makeText(getApplicationContext(), "No Internet Connection",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
+        //inisiasi semua komponen
+        init();
 
-        Intent x = getIntent();
-        id = x.getIntExtra("id", 0);
-        access = x.getIntExtra("access", 0);
+        //mengambil data dari halaman sebelumnya
+        Intent getData = getIntent();
+        id = getData.getIntExtra("id", 0);
+        access = getData.getIntExtra("access", 0);
 
-        loadjson();
-
-        btn_complete = findViewById(R.id.proj_btn_selesai);
-        btn_register = findViewById(R.id.proj_btn_register);
-        jobDesc = findViewById(R.id.proj_jobdesc_text);
-        spinner = findViewById(R.id.proj_name_spinner);
+        //mengeset spinner dengan nama user
+        loadSpinner();
 
         btn_register.setOnClickListener(view -> {
-            Integer idIntern = spinner.getSelectedItemPosition() + 1;
-            String jobdesc = jobDesc.getText().toString();
+            idIntern = spinner.getSelectedItemPosition() + 1;
+            jobdesc = jobDesc.getText().toString();
 
-            conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            {
-                if (conMgr.getActiveNetworkInfo() != null
-                        && conMgr.getActiveNetworkInfo().isAvailable()
-                        && conMgr.getActiveNetworkInfo().isConnected()) {
-                    checkRegister(idIntern.toString(), jobdesc);
-                } else {
-                    Toast.makeText(getApplicationContext(), "No Internet Connection",
-                            Toast.LENGTH_LONG).show();
-                }
+            //check apakah internet tersedia
+            if (connectivityManager.getActiveNetworkInfo() != null
+                    && connectivityManager.getActiveNetworkInfo().isAvailable()
+                    && connectivityManager.getActiveNetworkInfo().isConnected()) {
+                checkRegister(idIntern.toString(), jobdesc);
+            } else {
+                Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -102,103 +88,100 @@ public class RegisterProject1 extends AppCompatActivity {
         });
     }
 
-    private void loadjson(){
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage("Adding Project ...");
-        showDialog();
-        StringRequest str = new StringRequest(Config.spinnerName, new Response.Listener<String>() {
+    private void loadSpinner(){
+        progressDialog.setMessage("Adding Project ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Config.spinnerName, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, "Hasil Nama: " + response);
-                hideDialog();
+                progressDialog.cancel();
                 try {
+                    //mengambil data dalam bentuk array dari string
                     JSONArray arr = new JSONArray(response);
+
+                    //mengisi array dengan nama intern
                     for (int i = 0; i < arr.length(); i++){
                         JSONObject jsonObject = arr.getJSONObject(i);
                         internName.add(jsonObject.getString("nama"));
                     }
+                    //mengisi spinner dengan array yang tadi
                     ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, internName);
                     spinner.setAdapter(adapter);
                 } catch (JSONException e) {
+                    //JSON exception
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error : ", error.getMessage());
+                //VOLLEY exception
+                progressDialog.cancel();
+                Log.e(TAG_ERROR, error.getMessage());
             }
         });
-        Controller.getInstance().addToRequestQueue(str);
+        //menambahkan ke request queue untuk dipost ke alamat php yang dituju
+        Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
     private void checkRegister(final String idIntern, final String JobDesc) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage("Adding Project ...");
-        showDialog();
+        progressDialog.setMessage("Adding Project ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST, Config.addDetailProject, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.addDetailProject, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, "Register Response: " + response);
-                hideDialog();
+                progressDialog.cancel();
                 try {
+                    //ambil data berupa JSON object
                     JSONObject jObj = new JSONObject(response);
-                    success = jObj.getInt(TAG_SUCCESS);
 
-                    // Check for error node in json
+                    //success disini merupakan TAG pembeda antara operasi yang sukses atau tidak
+                    //jika 1 maka operasi sukses, jika 0 maka gagal
+                    Integer success = jObj.getInt(TAG_SUCCESS);
                     if (success == 1) {
-                        Log.e("Successfully Added!", jObj.toString());
-
-                        Toast.makeText(getApplicationContext(),
-                                jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(),
-                                jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-
+                        //disini ditampilkan message kegagalan
+                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
-                    // JSON error
+                    // JSON exception
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Add Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-
-                hideDialog();
+                //VOLLEY error
+                progressDialog.cancel();
+                Log.e(TAG_ERROR, error.getMessage());
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() {
+                //masukan data yang akan di post disini berupa string
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("idIntern", idIntern);
                 params.put("jobDesc", JobDesc);
 
                 return params;
             }
-
         };
-
-        // Adding request to request queue
-        Controller.getInstance().addToRequestQueue(strReq);
+        //menambahkan ke request queue untuk dipost ke alamat php yang dituju
+        Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
+    public void init(){
+        //inisiasi komponen
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        progressDialog = new ProgressDialog(this);
+        btn_complete = findViewById(R.id.proj_btn_selesai);
+        btn_register = findViewById(R.id.proj_btn_register);
+        jobDesc = findViewById(R.id.proj_jobdesc_text);
+        spinner = findViewById(R.id.proj_name_spinner);
     }
 }

@@ -11,8 +11,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -26,23 +24,21 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterProject extends AppCompatActivity {
 
+    ConnectivityManager connectivityManager;
     DatePicker startDate, endDate;
     EditText projName, projDesc;
     Button btn_register;
-    ConnectivityManager conMgr;
-    ProgressDialog pDialog;
-    Integer id, access, success;
+    ProgressDialog progressDialog;
+    Integer id, access;
+    String ProjName, ProjDesc;
 
-    private static final String TAG = RegisterProject.class.getSimpleName();
-
+    private static final String TAG_ERROR = "error";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 
@@ -51,38 +47,28 @@ public class RegisterProject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_project);
 
-        conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        {
-            if (conMgr.getActiveNetworkInfo() != null
-                    && conMgr.getActiveNetworkInfo().isAvailable()
-                    && conMgr.getActiveNetworkInfo().isConnected()) {
-            } else {
-                Toast.makeText(getApplicationContext(), "No Internet Connection",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
+        //inisialisasi semua komponen
+        init();
 
+        //mengambil data dari halaman sebelumnya
         Intent x = getIntent();
         id = x.getIntExtra("id", 0);
         access = x.getIntExtra("access", 0);
 
-        projName = findViewById(R.id.proj_projname_text);
-        projDesc = findViewById(R.id.proj_desc_text);
-        startDate = findViewById(R.id.proj_start_date);
-        endDate = findViewById(R.id.proj_end_date);
-        btn_register = findViewById(R.id.proj_btn_register);
-
         btn_register.setOnClickListener(view -> {
-            String ProjName = projName.getText().toString();
-            String ProjDesc = projDesc.getText().toString();
+            ProjName = projName.getText().toString();
+            ProjDesc = projDesc.getText().toString();
 
+            //format tanggal input
             SimpleDateFormat format = new SimpleDateFormat("dd MM yyyy");
+            //format tanggal yang akan diup ke database
             SimpleDateFormat afterformat = new SimpleDateFormat("dd MMMM yyyy");
             String S_Date = "" + startDate.getDayOfMonth();
             String S_Month = "" + startDate.getMonth();
             String E_Date = "" + endDate.getDayOfMonth();
             String E_Month = "" + endDate.getMonth();
 
+            //menambahkan angka '0' didepan tanggal dan bulan jika hanya 1 digit
             if (startDate.getDayOfMonth() < 10){
                 S_Date = "0" + startDate.getDayOfMonth();
             }
@@ -101,17 +87,20 @@ public class RegisterProject extends AppCompatActivity {
 
             Date localDate1 = null, localDate2 = null;
             try {
+                //mengubah data dari string ke date
                 localDate1 = format.parse(StartDate);
                 localDate2 = format.parse(EndDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
+            //compare date 1 dan date 2
             if (localDate1.compareTo(localDate2) <= 0){
-                if (conMgr.getActiveNetworkInfo() != null
-                        && conMgr.getActiveNetworkInfo().isAvailable()
-                        && conMgr.getActiveNetworkInfo().isConnected()) {
-                    checkRegister(ProjName, ProjDesc, afterformat.format(localDate1), afterformat.format(localDate2));
+                //check apakah internet tersedia
+                if (connectivityManager.getActiveNetworkInfo() != null
+                        && connectivityManager.getActiveNetworkInfo().isAvailable()
+                        && connectivityManager.getActiveNetworkInfo().isConnected()) {
+                    checkAdd(ProjName, ProjDesc, afterformat.format(localDate1), afterformat.format(localDate2));
                 } else {
                     Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
                 }
@@ -121,60 +110,49 @@ public class RegisterProject extends AppCompatActivity {
         });
     }
 
+    private void checkAdd(final String ProjName, final String ProjDesc, final String StartDate, final String EndDate) {
+        progressDialog.setMessage("Adding Project ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
-    private void checkRegister(final String ProjName, final String ProjDesc, final String StartDate, final String EndDate) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage("Adding Project ...");
-        showDialog();
-
-        StringRequest strReq = new StringRequest(Request.Method.POST, Config.addProject, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.addProject, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, "Register Response: " + response.toString());
-                hideDialog();
-
+                progressDialog.cancel();
                 try {
+                    //ambil data berupa JSON object
                     JSONObject jObj = new JSONObject(response);
-                    success = jObj.getInt(TAG_SUCCESS);
 
-                    // Check for error node in json
+                    //success disini merupakan TAG pembeda antara operasi yang sukses atau tidak
+                    //jika 1 maka operasi sukses, jika 0 maka gagal
+                    Integer success = jObj.getInt(TAG_SUCCESS);
                     if (success == 1) {
-                        Log.e("Successfully Added!", jObj.toString());
-
-                        Toast.makeText(getApplicationContext(),
-                                jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(RegisterProject.this, RegisterProject1.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(getApplicationContext(),
-                                jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-
+                        //disini ditampilkan message kegagalan
+                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
-                    // JSON error
+                    // JSON exception
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Add Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-
-                hideDialog();
+                //VOLLEY error
+                progressDialog.cancel();
+                Log.e(TAG_ERROR, error.getMessage());
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() {
+                //masukan data yang akan di post disini berupa string
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("ProjName", ProjName);
                 params.put("ProjDesc", ProjDesc);
@@ -183,20 +161,19 @@ public class RegisterProject extends AppCompatActivity {
 
                 return params;
             }
-
         };
-
-        // Adding request to request queue
-        Controller.getInstance().addToRequestQueue(strReq);
+        //menambahkan ke request queue untuk dipost ke alamat php yang dituju
+        Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
+    public void init(){
+        //inisiasi komponen
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        progressDialog = new ProgressDialog(RegisterProject.this);
+        projName = findViewById(R.id.proj_projname_text);
+        projDesc = findViewById(R.id.proj_desc_text);
+        startDate = findViewById(R.id.proj_start_date);
+        endDate = findViewById(R.id.proj_end_date);
+        btn_register = findViewById(R.id.proj_btn_register);
     }
 }

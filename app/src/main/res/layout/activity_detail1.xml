@@ -71,6 +71,24 @@
                     android:text="Project yang dikerjakan"
                     android:textSize="14sp" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/detailintern_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30sp"
+                android:layout_below="@id/linearLayout"
+                android:text="EDIT"/>
+
+            <Button
+                android:id="@+id/detailintern_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30sp"
+                android:layout_below="@id/detailintern_edit"
+                android:text="DELETE"/>
         </RelativeLayout>
     </ScrollView>
 

@@ -15,33 +15,33 @@ import java.util.ArrayList;
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewProcessHolder> {
 
     Context context;
-    private ArrayList<Model> item;
-    onListListener mOnListListener;
+    private ArrayList<Model> model;
+    onListListener onListListener;
 
     public ProjectAdapter(Context context, ArrayList<Model> item, onListListener onListListener) {
         this.context = context;
-        this.item = item;
-        this.mOnListListener = onListListener;
+        this.model = item;
+        this.onListListener = onListListener;
     }
 
     @Override
     public ViewProcessHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_project, parent, false);
-        ViewProcessHolder processHolder = new ViewProcessHolder(view, mOnListListener);
+        ViewProcessHolder processHolder = new ViewProcessHolder(view, onListListener);
         return processHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewProcessHolder holder, int position) {
 
-        final Model data = item.get(position);
+        final Model data = model.get(position);
         holder.nama_data.setText(data.getNamaProject());
         holder.jumlah_data.setText(data.getJumlahMember());
     }
 
     @Override
     public int getItemCount() {
-        return item.size();
+        return model.size();
     }
 
     public class ViewProcessHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

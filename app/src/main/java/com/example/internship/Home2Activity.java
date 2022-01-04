@@ -13,7 +13,7 @@ import com.example.internship.config.Config;
 public class Home2Activity extends AppCompatActivity {
 
     Integer id, access;
-    Button logout, intern, project, addIntern, addProject;
+    Button btn_logout, btn_intern, btn_project, btn_addIntern, btn_addProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +24,19 @@ public class Home2Activity extends AppCompatActivity {
         id = x.getIntExtra("id", 0);
         access = x.getIntExtra("access", 0);
 
-        logout = findViewById(R.id.logout);
-        intern = findViewById(R.id.intern);
-        project = findViewById(R.id.project);
-        addIntern = findViewById(R.id.btn_addIntern);
-        addProject = findViewById(R.id.btn_addProject);
+        btn_logout = findViewById(R.id.logout);
+        btn_intern = findViewById(R.id.intern);
+        btn_project = findViewById(R.id.project);
+        btn_addIntern = findViewById(R.id.btn_addIntern);
+        btn_addProject = findViewById(R.id.btn_addProject);
 
-        logout.setOnClickListener(view -> {
+        btn_logout.setOnClickListener(view -> {
             Intent intent = new Intent(Home2Activity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
 
-        intern.setOnClickListener(view -> {
+        btn_intern.setOnClickListener(view -> {
             Intent intent = new Intent(Home2Activity.this, Home1Activity.class);
             intent.putExtra("id", id);
             intent.putExtra("access", access);
@@ -44,7 +44,7 @@ public class Home2Activity extends AppCompatActivity {
             finish();
         });
 
-        project.setOnClickListener(view -> {
+        btn_project.setOnClickListener(view -> {
             Intent intent = new Intent(Home2Activity.this, HomeActivity.class);
             intent.putExtra("id", id);
             intent.putExtra("access", access);
@@ -52,14 +52,14 @@ public class Home2Activity extends AppCompatActivity {
             finish();
         });
 
-        addIntern.setOnClickListener(view -> {
+        btn_addIntern.setOnClickListener(view -> {
             Intent intent = new Intent(Home2Activity.this, RegisterActivity.class);
             intent.putExtra("id", id);
             intent.putExtra("access", access);
             startActivity(intent);
         });
 
-        addProject.setOnClickListener(view -> {
+        btn_addProject.setOnClickListener(view -> {
             Intent intent = new Intent(Home2Activity.this, RegisterProject.class);
             intent.putExtra("id", id);
             intent.putExtra("access", access);
