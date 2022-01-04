@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,8 @@ public class DetailActivityProject extends AppCompatActivity {
             url = Config.getDataDetail;
         }else {
             url = Config.getDataDetailNonAdm;
+            btn_edit.setVisibility(View.INVISIBLE);
+            btn_delete.setVisibility(View.INVISIBLE);
         }
 
         //load data berupa json kedalam activity
