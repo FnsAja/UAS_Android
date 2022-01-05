@@ -84,13 +84,13 @@ public class RegisterActivity extends AppCompatActivity {
                 progressDialog.cancel();
                 try {
                     //ambil data berupa JSON object
-                    JSONObject jObj = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response);
 
                     //success disini merupakan TAG pembeda antara operasi yang sukses atau tidak
                     //jika 1 maka operasi sukses, jika 0 maka gagal
-                    Integer success = jObj.getInt(TAG_SUCCESS);
+                    Integer success = jsonObject.getInt(TAG_SUCCESS);
                     if (success == 1) {
-                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), jsonObject.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(RegisterActivity.this, Home2Activity.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                         finish();
                     } else {
                         //disini ditampilkan message kegagalan
-                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), jsonObject.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     // JSON exception

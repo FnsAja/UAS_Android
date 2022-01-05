@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center|top"
     android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    tools:context=".EditInternActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -106,20 +106,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:hint="Phone" />
+                    android:hint="Phone"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
-                android:id="@+id/edit_status_spinner"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_about_layout"
                 android:layout_width="300sp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30sp"
-                android:entries="@array/status"
-                android:paddingVertical="15sp"
-                android:paddingHorizontal="9sp"
-                android:background="#e0e0e0"
-                android:clickable="false"/>
+                android:layout_marginTop="30sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_about_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="About Me" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/edit_btn_submit"
@@ -129,5 +131,4 @@
                 android:text="Submit" />
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

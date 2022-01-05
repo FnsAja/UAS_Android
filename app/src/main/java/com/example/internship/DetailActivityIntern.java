@@ -76,6 +76,15 @@ public class DetailActivityIntern extends AppCompatActivity {
                 Toast.makeText(getApplicationContext() ,"No Internet Connection", Toast.LENGTH_LONG).show();
             }
         });
+
+        btn_edit.setOnClickListener(view -> {
+            Intent intent = new Intent(DetailActivityIntern.this, EditInternActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("access", access);
+            intent.putExtra("idIntern", idIntern);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void loadData(){

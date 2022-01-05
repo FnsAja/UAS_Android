@@ -48,16 +48,13 @@ public class DetailActivityProject extends AppCompatActivity {
         init();
 
         //mendapat data dari halaman project
-        Intent x = getIntent();
-        id = x.getIntExtra("id", 0);
-        idProj = x.getIntExtra("idproj", -1);
-        access = x.getIntExtra("access", 0);
+        Intent getData = getIntent();
+        id = getData.getIntExtra("id", 0);
+        idProj = getData.getIntExtra("idproj", -1);
+        access = getData.getIntExtra("access", 0);
 
         //membedakan antara akses admin dan non admin
-        if(access == 1){
-            url = Config.getDataDetail;
-        }else {
-            url = Config.getDataDetailNonAdm;
+        if(access == 0){
             btn_edit.setVisibility(View.INVISIBLE);
             btn_delete.setVisibility(View.INVISIBLE);
         }
@@ -75,6 +72,15 @@ public class DetailActivityProject extends AppCompatActivity {
                 Toast.makeText(getApplicationContext() ,"No Internet Connection", Toast.LENGTH_LONG).show();
             }
         });
+
+        btn_edit.setOnClickListener(view -> {
+            Intent intent = new Intent(DetailActivityProject.this, EditProjectActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("access", access);
+            intent.putExtra("idProj", idProj);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void loadData(){
@@ -82,7 +88,7 @@ public class DetailActivityProject extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest arrayRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest arrayRequest = new StringRequest(Request.Method.POST, Config.getDataDetail, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.cancel();
