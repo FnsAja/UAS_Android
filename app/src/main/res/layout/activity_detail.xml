@@ -9,11 +9,12 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        app:title="My Intern"
-        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Main_Blue"/>
+        android:background="@color/Main_Blue"
+        android:minHeight="?attr/actionBarSize"
+        app:title="My Intern"
+        app:titleTextColor="@color/Pure_White" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,7 +41,7 @@
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/nunito_bold"
                     android:text="Build Colony on Mars"
-                    android:textColor="@color/black"
+                    android:textColor="@color/Main_Blue"
                     android:textSize="30sp" />
 
                 <LinearLayout
@@ -59,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nunito_semibold"
                             android:text="Start Date :"
-                            android:textColor="@color/black"
+                            android:textColor="@color/Main_Blue"
                             android:textSize="16sp" />
 
                         <TextView
@@ -68,7 +69,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nunito"
                             android:text="1 Desember 2021"
-                            android:textColor="@color/black"
+                            android:textColor="@color/Secondary_Grey"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -83,7 +84,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nunito_semibold"
                             android:text="End Date :"
-                            android:textColor="@color/black"
+                            android:textColor="@color/Main_Blue"
                             android:textSize="16sp" />
 
                         <TextView
@@ -92,7 +93,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nunito"
                             android:text="1 Desember 2021"
-                            android:textColor="@color/black"
+                            android:textColor="@color/Secondary_Grey"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -100,9 +101,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito"
+                    android:fontFamily="@font/nunito_semibold"
                     android:text="Project Description :"
-                    android:textColor="@color/black"
+                    android:textColor="@color/Main_Blue"
                     android:textSize="16sp" />
 
                 <TextView
@@ -112,16 +113,27 @@
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/nunito"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed sit vulputate nibh nulla nunc, purus in platea. Eu in lectus vel diam, euismod. Auctor lorem tempor, viverra arcu blandit. Felis id malesuada vulputate dolor. Luctus quis amet quis ut non vulputate arcu id. Orci dui faucibus imperdiet mi viverra pulvinar. :"
-                    android:textColor="@color/black"
+                    android:textColor="@color/Secondary_Grey"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito"
-                    android:text="Interns Who's Working on It :"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:text="Interns Who's Working on It :"
+                        android:textColor="@color/Main_Blue"
+                        android:textSize="16sp" />
+
+                    <ListView
+                        android:id="@+id/intern_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/detailproj_edit"
@@ -136,10 +148,10 @@
                     android:id="@+id/detailproj_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/detailproj_edit"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30sp"
-                    android:layout_below="@id/detailproj_edit"
-                    android:text="DELETE"/>
+                    android:text="DELETE" />
 
             </LinearLayout>
         </RelativeLayout>

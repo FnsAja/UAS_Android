@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|top"
+    android:orientation="vertical"
+    tools:context=".EditInternActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|top"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80sp"
+                android:text="Edit Intern"
+                android:textSize="42sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_fullname_layout"
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_fullname_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Full Name" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_email_layout"
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_email_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_uname_layout"
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp"
+                android:clickable="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_uname_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Username"
+                    android:clickable="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_address_layout"
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_address_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Address" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_div_layout"
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_div_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Division" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_phone_layout"
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_phone_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:hint="Phone"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_about_layout"
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_about_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="About Me" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/edit_btn_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:text="Submit" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

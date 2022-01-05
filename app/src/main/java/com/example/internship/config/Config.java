@@ -17,7 +17,7 @@ public interface Config {
     public static final String addDetailProject = "http://" + IP +"/intern/addDetailProject.php";
     public static final String spinnerName = "http://" + IP +"/intern/spinnerName.php";
     public static final String deleteProject = "http://" + IP +"/intern/deleteProject.php";
-    //    public static final String editProject = "http://" + IP +"/intern/deleteProject.php";
+    public static final String editProject = "http://" + IP +"/intern/deleteProject.php";
     public static final String deleteIntern = "http://" + IP +"/intern/deleteIntern.php";
-//    public static final String editIntern = "http://" + IP +"/intern/deleteProject.php";
+    public static final String editIntern = "http://" + IP +"/intern/deleteProject.php";
 }

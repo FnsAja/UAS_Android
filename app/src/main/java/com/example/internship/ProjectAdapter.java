@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,7 +50,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewProc
         public ViewProcessHolder(@NonNull View itemView, onListListener onListListener) {
             super(itemView);
             nama_data = (TextView) itemView.findViewById(R.id.name);
-            jumlah_data = (TextView) itemView.findViewById(R.id.count);
+            jumlah_data = (TextView) itemView.findViewById(R.id.desc);
             this.onListListener = onListListener;
 
             itemView.setOnClickListener(this);
