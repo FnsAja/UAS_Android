@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -28,50 +27,29 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    ProgressDialog pDialog;
-    Button btn_register;
+    ProgressDialog progressDialog;
+    ConnectivityManager connectivityManager;
     EditText txt_division, txt_phone, txt_address, txt_fullname, txt_email, txt_username, txt_password, txt_confirm_password;
+    Button btn_register;
     Spinner txt_status;
-    Intent intent;
+    Integer id, access;
 
-    int success;
-    ConnectivityManager conMgr;
-
-    private String url = Config.registerPhp;
-
-    private static final String TAG = RegisterActivity.class.getSimpleName();
-
+    private static final String TAG_ERROR = "error";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
-
-    String tag_json_obj = "json_obj_req";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        {
-            if (conMgr.getActiveNetworkInfo() != null
-                    && conMgr.getActiveNetworkInfo().isAvailable()
-                    && conMgr.getActiveNetworkInfo().isConnected()) {
-            } else {
-                Toast.makeText(getApplicationContext(), "No Internet Connection",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
+        //inisialisasi semua komponen
+        init();
 
-        btn_register = (Button) findViewById(R.id.regist_btn_register);
-        txt_fullname = (EditText) findViewById(R.id.regist_fullname_text);
-        txt_username = (EditText) findViewById(R.id.regist_uname_text);
-        txt_email = (EditText) findViewById(R.id.regist_email_text);
-        txt_password = (EditText) findViewById(R.id.regist_pass_text);
-        txt_confirm_password = (EditText) findViewById(R.id.regist_confpass_text);
-        txt_address = (EditText) findViewById(R.id.regist_address_text);
-        txt_division = (EditText) findViewById(R.id.regist_div_text);
-        txt_phone = (EditText) findViewById(R.id.regist_phone_text);
-        txt_status = (Spinner) findViewById(R.id.regist_status_spinner);
+        //mengambil data dari halaman sebelumnya
+        Intent getData = getIntent();
+        id = getData.getIntExtra("id", 0);
+        access = getData.getIntExtra("access", 0);
 
         btn_register.setOnClickListener(view -> {
             String username = txt_username.getText().toString();
@@ -84,69 +62,60 @@ public class RegisterActivity extends AppCompatActivity {
             String status = txt_status.getSelectedItem().toString();
             String phone = txt_phone.getText().toString();
 
-            if (conMgr.getActiveNetworkInfo() != null
-                    && conMgr.getActiveNetworkInfo().isAvailable()
-                    && conMgr.getActiveNetworkInfo().isConnected()) {
+            //check apakah internet tersedia
+            if (connectivityManager.getActiveNetworkInfo() != null
+                    && connectivityManager.getActiveNetworkInfo().isAvailable()
+                    && connectivityManager.getActiveNetworkInfo().isConnected()) {
                 checkRegister(username, password, confirm_password, email, fullname, address, division, status, phone);
             } else {
                 Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
-
         });
     }
 
     private void checkRegister(final String username, final String password, final String confirm_password, final String email, final String fullname, final String address, final String division, final String status, final String phone) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage("Register ...");
-        showDialog();
+        progressDialog.setMessage("Register ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.registerPhp, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, "Register Response: " + response.toString());
-                hideDialog();
-
+                progressDialog.cancel();
                 try {
+                    //ambil data berupa JSON object
                     JSONObject jObj = new JSONObject(response);
-                    success = jObj.getInt(TAG_SUCCESS);
 
-                    // Check for error node in json
+                    //success disini merupakan TAG pembeda antara operasi yang sukses atau tidak
+                    //jika 1 maka operasi sukses, jika 0 maka gagal
+                    Integer success = jObj.getInt(TAG_SUCCESS);
                     if (success == 1) {
-                        Log.e("Successfully Register!", jObj.toString());
-
-                        Toast.makeText(getApplicationContext(),
-                                jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-
-                        intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        finish();
+                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(RegisterActivity.this, Home2Activity.class);
+                        intent.putExtra("id", id);
+                        intent.putExtra("access", access);
                         startActivity(intent);
+                        finish();
                     } else {
-                        Toast.makeText(getApplicationContext(),
-                                jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-
+                        //disini ditampilkan message kegagalan
+                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
-                    // JSON error
+                    // JSON exception
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Regis Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-
-                hideDialog();
+                //VOLLEY error
+                progressDialog.cancel();
+                Log.e(TAG_ERROR, error.getMessage());
             }
-        }) {
-
+        }){
             @Override
             protected Map<String, String> getParams() {
-                // Posting parameters to login url
+                //masukan data yang akan di post disini berupa string
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("fullname", fullname);
                 params.put("username", username);
@@ -158,29 +127,26 @@ public class RegisterActivity extends AppCompatActivity {
                 params.put("division", division);
                 params.put("status", status);
 
-
                 return params;
             }
-
         };
-
-        // Adding request to request queue
-        Controller.getInstance().addToRequestQueue(strReq);
+        //menambahkan ke request queue untuk dipost ke alamat php yang dituju
+        Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
-
-    public void onClick(View view) {
-        intent = new Intent(RegisterActivity.this, LoginActivity.class);
-        finish();
-        startActivity(intent);
+    public void init(){
+        //inisiasi komponen
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        btn_register = (Button) findViewById(R.id.regist_btn_register);
+        txt_fullname = (EditText) findViewById(R.id.regist_fullname_text);
+        txt_username = (EditText) findViewById(R.id.regist_uname_text);
+        txt_email = (EditText) findViewById(R.id.regist_email_text);
+        txt_password = (EditText) findViewById(R.id.regist_pass_text);
+        txt_confirm_password = (EditText) findViewById(R.id.regist_confpass_text);
+        txt_address = (EditText) findViewById(R.id.regist_address_text);
+        txt_division = (EditText) findViewById(R.id.regist_div_text);
+        txt_phone = (EditText) findViewById(R.id.regist_phone_text);
+        txt_status = (Spinner) findViewById(R.id.regist_status_spinner);
+        progressDialog = new ProgressDialog(RegisterActivity.this);
     }
 }

@@ -7,9 +7,18 @@
     android:scrollbars="vertical"
     tools:context=".DetailActivityIntern">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:title="My Intern"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Main_Blue"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,48 +38,173 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="INI NAMA Intern"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="John Doe"
+                    android:textColor="@color/Main_Blue"
                     android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textAlignment="center"
+                    android:layout_gravity="center"/>
 
+                <TextView
+                    android:id="@+id/textViewNamaDivisi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="IT Web"
+                    android:textColor="@color/Secondary_Blue"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/textViewAboutMe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/nunito"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed sit vulputate nibh nulla nunc, purus in platea. Eu in lectus vel diam, euismod."
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="Information"
+                    android:textColor="@color/Main_Blue"
+                    android:textSize="18sp"
+                    android:layout_gravity="left"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_bold"
+                    android:layout_marginBottom="5dp"
+                    android:text="Address :"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_gravity="left"/>
+                <TextView
+                    android:id="@+id/textViewAlamatIntern"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/nunito"
+                    android:text="Raccon City"
+                    android:textColor="@color/Main_Grey"
+                    android:textSize="12sp"
+                    android:layout_gravity="left"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="Email :"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_gravity="left"/>
                 <TextView
                     android:id="@+id/textViewEmailIntern"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="16sp" />
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/nunito"
+                    android:text="johndoe@interns.com"
+                    android:textColor="@color/Main_Grey"
+                    android:textSize="12sp"
+                    android:layout_gravity="left"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="Phone Number :"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_gravity="left"/>
                 <TextView
                     android:id="@+id/textViewNomorTelpon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nomor Telpon"
-                    android:textSize="18sp" />
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/nunito"
+                    android:text="083228282121  "
+                    android:textColor="@color/Main_Grey"
+                    android:textSize="12sp"
+                    android:layout_gravity="left"/>
 
                 <TextView
-                    android:id="@+id/textViewAlamatIntern"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Alamat"
-                    android:textSize="14sp" />
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="Performance"
+                    android:textColor="@color/Main_Blue"
+                    android:textSize="18sp"
+                    android:layout_gravity="left"/>
 
                 <TextView
-                    android:id="@+id/textViewAboutMe"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="About Me"
-                    android:textSize="14sp" />
-
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="Project :"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_gravity="left"/>
                 <TextView
                     android:id="@+id/textViewNamaProjectIntern"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Project yang dikerjakan"
-                    android:textSize="14sp" />
+                    android:fontFamily="@font/nunito"
+                    android:text="Raccon City"
+                    android:textColor="@color/Main_Grey"
+                    android:textSize="12sp"
+                    android:layout_gravity="left"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="Performance Level :"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_gravity="left"/>
+                <TextView
+                    android:id="@+id/textViewPerformance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/nunito"
+                    android:text="Excellent"
+                    android:textColor="@color/Main_Grey"
+                    android:textSize="12sp"
+                    android:layout_gravity="left"/>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/detailintern_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30sp"
+                android:layout_below="@id/linearLayout"
+                android:text="EDIT"/>
+
+            <Button
+                android:id="@+id/detailintern_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30sp"
+                android:layout_below="@id/detailintern_edit"
+                android:text="DELETE"/>
         </RelativeLayout>
     </ScrollView>
 

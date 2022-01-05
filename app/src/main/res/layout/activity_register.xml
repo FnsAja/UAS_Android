@@ -22,9 +22,11 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80sp"
+                android:layout_marginTop="50sp"
+                android:fontFamily="@font/nunito_bold"
                 android:text="Register"
-                android:textSize="42sp" />
+                android:textColor="@color/Main_Blue"
+                android:textSize="36sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/regist_fullname_layout"
@@ -155,16 +157,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
-                android:text="Register" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:onClick="onClick"
-                android:clickable="true"
-                android:text="Already Have an Account? Login Here!" />
+                android:backgroundTint="@color/Secondary_Blue"
+                android:fontFamily="@font/nunito_bold"
+                android:text="Register"
+                android:textColor="@color/Pure_White" />
 
         </LinearLayout>
     </ScrollView>

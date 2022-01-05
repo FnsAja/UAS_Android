@@ -10,7 +10,7 @@ import com.android.volley.toolbox.Volley;
 public class Controller extends Application{
     private static final String TAG = Application.class.getSimpleName();
     private static Controller controller;
-    RequestQueue mRequestQueue;
+    RequestQueue requestQueue;
 
     @Override
     public void onCreate() {
@@ -23,10 +23,10 @@ public class Controller extends Application{
     }
 
     private RequestQueue getRequestQueue(){
-        if (mRequestQueue == null){
-            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        if (requestQueue == null){
+            requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-        return mRequestQueue;
+        return requestQueue;
     }
 
     public <T> void addToRequestQueue(Request<T> req, String tag){
@@ -40,8 +40,8 @@ public class Controller extends Application{
     }
 
     public void cancelAllRequest(Object req){
-        if (mRequestQueue != null){
-            mRequestQueue.cancelAll(req);
+        if (requestQueue != null){
+            requestQueue.cancelAll(req);
         }
     }
 }

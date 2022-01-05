@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,132 +26,110 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    ProgressDialog pDialog;
-    Button btn_login;
+    ConnectivityManager connectivityManager;
+    ProgressDialog progressDialog;
     EditText txt_username, txt_password;
-    Intent intent;
+    Button btn_login;
+    String username, password;
 
-    int success;
-    ConnectivityManager conMgr;
-    private String url = Config.loginPhp;
-    private static final String TAG = LoginActivity.class.getSimpleName();
-
+    private static final String TAG_ERROR = "error";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
-    public final static String TAG_USERNAME = "username";
-    public final static String TAG_ID = "id";
-    public final static String TAG_ACCESS = "access";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        btn_login = (Button) findViewById(R.id.login_btn_login);
-        txt_username = (EditText) findViewById(R.id.login_uname_text);
-        txt_password = (EditText) findViewById(R.id.login_pass_text);
+        //inisiasi semua komponen
+        init();
 
         btn_login.setOnClickListener(view -> {
-            String username = txt_username.getText().toString();
-            String password = txt_password.getText().toString();
+            username = txt_username.getText().toString();
+            password = txt_password.getText().toString();
 
+            //check apakah username dan password penuh
             if (username.trim().length() > 0 && password.trim().length() > 0) {
-                if (conMgr.getActiveNetworkInfo() != null
-                        && conMgr.getActiveNetworkInfo().isAvailable()
-                        && conMgr.getActiveNetworkInfo().isConnected()) {
+                //check apakah ada internet
+                if (connectivityManager.getActiveNetworkInfo() != null
+                        && connectivityManager.getActiveNetworkInfo().isAvailable()
+                        && connectivityManager.getActiveNetworkInfo().isConnected()) {
                     checkLogin(username, password);
                 } else {
                     Toast.makeText(getApplicationContext() ,"No Internet Connection", Toast.LENGTH_LONG).show();
                 }
             } else {
-                // Prompt user to enter credentials
                 Toast.makeText(getApplicationContext() ,"Username dan Password tidak boleh kosong", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void checkLogin(final String username, final String password) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage("Logging in ...");
-        showDialog();
+        progressDialog.setMessage("Logging in ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.loginPhp, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, "Login Response: " + response.toString());
-                hideDialog();
+                progressDialog.cancel();
                 try {
+                    //mengambil data dalam bentuk array dari string
                     JSONObject jObj = new JSONObject(response);
-                    success = jObj.getInt(TAG_SUCCESS);
 
-                    // Check for error node in json
+                    //success disini merupakan TAG pembeda antara operasi yang sukses atau tidak
+                    //jika 1 maka operasi sukses, jika 0 maka gagal
+                    Integer success = jObj.getInt(TAG_SUCCESS);
                     if (success == 1) {
-                        String username = jObj.getString(TAG_USERNAME);
-                        Integer id = jObj.getInt(TAG_ID);
-                        Integer access = jObj.getInt(TAG_ACCESS);
-
-                        Log.e("Successfully Login!", jObj.toString());
-
+                        String username = jObj.getString("username");
+                        Integer id = jObj.getInt("id");
+                        Integer access = jObj.getInt("access");
                         Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        intent.putExtra(TAG_USERNAME, username);
-                        intent.putExtra(TAG_ID, id);
-                        intent.putExtra(TAG_ACCESS, access);
+                        intent.putExtra("username", username);
+                        intent.putExtra("id", id);
+                        intent.putExtra("access", access);
                         finish();
                         startActivity(intent);
                     } else {
-                        Toast.makeText(getApplicationContext(),
-                                jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-
+                        //disini ditampilkan message kegagalan
+                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
-                    // JSON error
+                    // JSON exception
                     e.printStackTrace();
                 }
 
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-
-                hideDialog();
+                //VOLLEY error
+                progressDialog.cancel();
+                Log.e(TAG_ERROR, error.getMessage());
             }
         }){
             @Override
             protected Map<String, String> getParams() {
-                // Posting parameters to login url
+                //masukan data yang akan di post disini berupa string
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username", username);
                 params.put("password", password);
 
                 return params;
             }
-
         };
-
-        // Adding request to request queue
-        Controller.getInstance().addToRequestQueue(strReq);
+        //menambahkan ke request queue untuk dipost ke alamat php yang dituju
+        Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
-
-    public void onClick(View view) {
-        intent = new Intent(LoginActivity.this, RegisterActivity.class);
-        startActivity(intent);
+    public void init(){
+        //komponen inisiasi
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        btn_login = findViewById(R.id.login_btn_login);
+        txt_username = findViewById(R.id.login_uname_text);
+        txt_password = findViewById(R.id.login_pass_text);
+        progressDialog = new ProgressDialog(LoginActivity.this);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.internship.config;
 
 public interface Config {
-    public static final String IP = "192.168.1.5";
+    public static final String IP = "192.168.1.20";
 
     public static final String getDataAdm = "http://" + IP +"/intern/tampil_proj.php";
     public static final String getDataNonAdm = "http://" + IP +"/intern/tampil_projnonadm.php";
@@ -13,4 +13,11 @@ public interface Config {
     public static final String getDataDetailInternNonAdm = "http://" + IP +"/intern/detail_internnonadm.php";
     public static final String loginPhp = "http://" + IP +"/intern/login.php";
     public static final String registerPhp = "http://" + IP +"/intern/register.php";
+    public static final String addProject = "http://" + IP +"/intern/addProject.php";
+    public static final String addDetailProject = "http://" + IP +"/intern/addDetailProject.php";
+    public static final String spinnerName = "http://" + IP +"/intern/spinnerName.php";
+    public static final String deleteProject = "http://" + IP +"/intern/deleteProject.php";
+    //    public static final String editProject = "http://" + IP +"/intern/deleteProject.php";
+    public static final String deleteIntern = "http://" + IP +"/intern/deleteIntern.php";
+//    public static final String editIntern = "http://" + IP +"/intern/deleteProject.php";
 }
