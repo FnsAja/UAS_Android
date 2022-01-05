@@ -12,7 +12,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
@@ -28,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +44,9 @@ public class DetailActivityProject extends AppCompatActivity {
     ConnectivityManager connectivityManager;
     Toolbar toolbar;
     ProgressDialog progressDialog;
+    ListView listViewIntern;
+
+    public ArrayList<InternModel> modelIntern = new ArrayList<InternModel>();
 
     private static final String TAG_ERROR = "error";
     private static final String TAG_SUCCESS = "success";
@@ -103,16 +110,20 @@ public class DetailActivityProject extends AppCompatActivity {
 
                     //mengisi setiap item dengan data yang tadi diambil
                     for (int i = 0; i < arr.length(); i++){
+                        Log.e("respons : ", response);
                         JSONObject data = arr.getJSONObject(i);
                         txt_nama.setText(data.getString("namaproj"));
                         //temp1 += data.getString("namaintern") + "\n Jobdesc :  " + data.getString("jobdesc") + "\n";
                         txt_deskripsi.setText(data.getString("deskripsi"));
+                        modelIntern.add(new InternModel(data.getString("namaintern"), data.getString("divisiintern")));
                     }
                     //txt_namaIntern.setText(temp1);
                 } catch (JSONException e) {
                     //JSON exception
                     e.printStackTrace();
                 }
+                InternListAdapter adapter = new InternListAdapter(DetailActivityProject.this, modelIntern);
+                listViewIntern.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -218,6 +229,13 @@ public class DetailActivityProject extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext() ,"No Internet Connection", Toast.LENGTH_LONG).show();
                 }
+            case R.id.menu_edit:
+                //intent ke halaman edit
+                Intent intent = new Intent(DetailActivityProject.this, EditProjectActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("access", access);
+                intent.putExtra("idProj", idProj);
+                startActivity(intent);
         }
         return true;
     }
@@ -230,5 +248,6 @@ public class DetailActivityProject extends AppCompatActivity {
         btn_delete = findViewById(R.id.detailproj_delete);
         txt_nama = findViewById(R.id.textViewNamaProject);
         txt_deskripsi = findViewById(R.id.projectDescription);
+        listViewIntern = findViewById(R.id.intern_listView);
     }
 }

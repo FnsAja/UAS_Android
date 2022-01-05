@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.internship.config.Config;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +38,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     ProgressDialog progressDialog;
+    FloatingActionButton floatingActionButton;
     ArrayList<Model> model = new ArrayList<>();
     ArrayList<Integer> idProj = new ArrayList<>();
 
@@ -83,6 +85,15 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
         //inisialisasi semua komponen
         init();
 
+        //inisiasi floating action button
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, RegisterProject.class);
+                startActivity(intent);
+            }
+        });
+
         //mendapat data dari halaman sebelumnya
         Intent x = getIntent();
         id = x.getIntExtra("id", 0);
@@ -93,6 +104,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
             url = Config.getDataAdm;
         }else {
             url = Config.getDataNonAdm;
+            floatingActionButton.setVisibility(View.GONE);
         }
 
         //load data berupa json kedalam activity
@@ -169,6 +181,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         adapter = new ProjectAdapter(this, model, this);
+        floatingActionButton = findViewById(R.id.floatingButton);
         recyclerView.setAdapter(adapter);
     }
 }

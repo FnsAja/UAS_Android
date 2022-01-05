@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Integer success = jObj.getInt(TAG_SUCCESS);
                     if (success == 1) {
                         Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(RegisterActivity.this, Home2Activity.class);
+                        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
                         startActivity(intent);

@@ -116,7 +116,7 @@
                 android:layout_width="300sp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30sp"
-                android:entries="@array/status"
+                android:entries="@array/performance"
                 android:paddingVertical="15sp"
                 android:paddingHorizontal="9sp"
                 android:background="#e0e0e0"/>

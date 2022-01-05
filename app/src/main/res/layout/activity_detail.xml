@@ -17,8 +17,8 @@
         app:titleTextColor="@color/Pure_White" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_below="@id/toolbar">
 
         <RelativeLayout
@@ -130,9 +130,11 @@
                         android:textSize="16sp" />
 
                     <ListView
-                        android:id="@+id/intern_list"
+                        android:id="@+id/intern_listView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="100dp"
+                        android:divider="@null"
+                        android:clickable="false"/>
                 </LinearLayout>
 
                 <Button

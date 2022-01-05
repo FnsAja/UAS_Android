@@ -221,6 +221,13 @@ public class DetailActivityIntern extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext() ,"No Internet Connection", Toast.LENGTH_LONG).show();
                 }
+            case R.id.menu_edit:
+                //intent ke halaman edit
+                Intent intent = new Intent(DetailActivityIntern.this, EditInternActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("access", access);
+                intent.putExtra("idIntern", idIntern);
+                startActivity(intent);
         }
         return true;
     }

@@ -80,7 +80,7 @@ public class RegisterProject1 extends AppCompatActivity {
         });
 
         btn_complete.setOnClickListener(view -> {
-            Intent intent = new Intent(RegisterProject1.this, Home2Activity.class);
+            Intent intent = new Intent(RegisterProject1.this, HomeActivity.class);
             intent.putExtra("id", id);
             intent.putExtra("access", access);
             startActivity(intent);

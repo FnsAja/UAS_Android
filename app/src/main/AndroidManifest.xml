@@ -36,9 +36,6 @@
             android:name=".RegisterProject"
             android:exported="false" />
         <activity
-            android:name=".Home2Activity"
-            android:exported="true" />
-        <activity
             android:name=".DetailActivityIntern"
             android:exported="true" />
         <activity
