@@ -18,21 +18,23 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="6dp"
-            android:text="Nama Project"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:fontFamily="@font/nunito"
-            android:layout_gravity="center"/>
+            android:text="Nama Project"
+            android:textColor="@color/Main_Grey"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/count"
+            android:id="@+id/desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="6dp"
-            android:text="Jumlah"
-            android:textSize="14sp"
             android:fontFamily="@font/nunito"
-            android:layout_gravity="center"/>
+            android:text="Deskripsi"
+            android:textColor="@color/Secondary_Grey"
+            android:textSize="14sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
