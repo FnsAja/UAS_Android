@@ -24,6 +24,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".EditProjectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditInternActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterProject1"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterProject"
+            android:exported="false" />
+        <activity
             android:name=".Home2Activity"
             android:exported="true" />
         <activity
