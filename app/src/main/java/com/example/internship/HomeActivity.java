@@ -90,6 +90,8 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, RegisterProject.class);
+                intent.putExtra("id", id);
+                intent.putExtra("access", access);
                 startActivity(intent);
             }
         });
