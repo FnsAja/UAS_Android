@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.internship.config.Config;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,6 +50,9 @@ public class EditProjectActivity extends AppCompatActivity {
 
         //inisialisasi semua komponen
         init();
+
+        //set text
+        setText();
 
         //mengambil data dari halaman sebelumnya
         Intent getData = getIntent();
@@ -109,6 +113,42 @@ public class EditProjectActivity extends AppCompatActivity {
                 Toast.makeText(this, "Start Date harus lebih kecil dari End Date", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setText(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.getDataDetail, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressDialog.cancel();
+                try {
+                    JSONArray arr = new JSONArray(response);
+                    JSONObject jsonObject = arr.getJSONObject(arr.length()-1);
+                    projName.setText(jsonObject.getString("namaproj"));
+                    projDesc.setText(jsonObject.getString("deskripsi"));
+                } catch (JSONException e) {
+                    //JSON exception
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //VOLLEY exception
+                progressDialog.cancel();
+                Log.e(TAG_ERROR, error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                //masukan data yang akan di post disini berupa string
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("idproj", idProj.toString());
+
+                return params;
+            }
+        };
+        //menambahkan ke request queue untuk dipost ke alamat php yang dituju
+        Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
     private void update(final String ProjName, final String ProjDesc, final String StartDate, final String EndDate) {

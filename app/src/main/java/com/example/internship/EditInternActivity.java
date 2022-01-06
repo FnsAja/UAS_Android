@@ -1,16 +1,23 @@
 package com.example.internship;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +39,9 @@ public class EditInternActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
     ConnectivityManager connectivityManager;
-    EditText txt_division, txt_phone, txt_about, txt_address, txt_fullname, txt_email, txt_username;
+    EditText txt_division, txt_phone, txt_about, txt_address,
+            txt_fullname, txt_email, txt_username;
+    Spinner txt_status;
     Button btn_submit;
     Integer id, access, idIntern;
 
@@ -46,6 +56,44 @@ public class EditInternActivity extends AppCompatActivity {
 
         //inisialisasi semua komponen
         init();
+
+        //inisialisasi array performance
+        String[] performanceItem = new String[]{
+                "Choose Performance", "Bad", "Good",
+                "Very Good", "Excellent"
+        };
+
+        //arraylist spinner
+        ArrayList<String> spinnerArray = new ArrayList<String>(Arrays.asList(performanceItem));
+
+        //spinner Arrayadapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, spinnerArray){
+            @Override
+            public boolean isEnabled(int position) {
+                //menonaktifkan pilihan pertama (choose performance)
+                if(position == 0){
+                    return false;
+                }
+                else
+                    return true;
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+                //mengubah warna text spinner
+                if(position == 0){
+                    textView.setTextColor(Color.GRAY);
+                }
+                else
+                    textView.setTextColor(Color.BLACK);
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        txt_status.setAdapter(spinnerArrayAdapter);
 
         //mengeset edit text dengan data yang sudah ada
         setText();
@@ -64,12 +112,13 @@ public class EditInternActivity extends AppCompatActivity {
             String division = txt_division.getText().toString();
             String phone = txt_phone.getText().toString();
             String about = txt_about.getText().toString();
+            String performance = txt_status.getSelectedItem().toString();
 
             //check apakah internet tersedia
             if (connectivityManager.getActiveNetworkInfo() != null
                     && connectivityManager.getActiveNetworkInfo().isAvailable()
                     && connectivityManager.getActiveNetworkInfo().isConnected()) {
-                update(username, email, fullname, address, division, phone, about);
+                update(username, email, fullname, address, division, performance, phone, about);
             } else {
                 Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
@@ -89,6 +138,24 @@ public class EditInternActivity extends AppCompatActivity {
                     txt_fullname.setText(jsonObject.getString("nama"));
                     txt_address.setText(jsonObject.getString("alamat"));
                     txt_division.setText(jsonObject.getString("divisi"));
+                    int position;
+                    switch (jsonObject.getString("performance")){
+                        case "Bad" :
+                            position = 1;
+                            break;
+                        case "Good" :
+                            position = 2;
+                            break;
+                        case "Very Good" :
+                            position = 3;
+                            break;
+                        case "Excellent" :
+                            position = 4;
+                            break;
+                        default :
+                            position = 0;
+                    }
+                    txt_status.setSelection(position);
                     txt_phone.setText(jsonObject.getString("notelp"));
                     txt_about.setText(jsonObject.getString("about"));
                 } catch (JSONException e) {
@@ -117,7 +184,7 @@ public class EditInternActivity extends AppCompatActivity {
         Controller.getInstance().addToRequestQueue(stringRequest);
     }
 
-    private void update(final String username, final String email, final String fullname, final String address, final String division, final String phone, final String about) {
+    private void update(final String username, final String email, final String fullname, final String address, final String division, final String performance, final String phone, final String about) {
         progressDialog.setMessage("Updating ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -167,6 +234,7 @@ public class EditInternActivity extends AppCompatActivity {
                 params.put("address", address);
                 params.put("email", email);
                 params.put("phone", phone);
+                params.put("performance", performance);
                 params.put("division", division);
                 params.put("aboutme", about);
 
@@ -189,5 +257,6 @@ public class EditInternActivity extends AppCompatActivity {
         txt_division = findViewById(R.id.edit_div_text);
         txt_phone = findViewById(R.id.edit_phone_text);
         txt_about = findViewById(R.id.edit_about_text);
+        txt_status = findViewById(R.id.spinnerPerform);
     }
 }

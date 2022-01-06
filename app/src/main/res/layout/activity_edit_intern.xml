@@ -8,6 +8,12 @@
     android:orientation="vertical"
     tools:context=".EditInternActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/Main_Blue"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,9 +28,11 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80sp"
+                android:fontFamily="@font/nunito_bold"
+                android:layout_marginTop="60sp"
+                android:textColor="@color/Main_Blue"
                 android:text="Edit Intern"
-                android:textSize="42sp" />
+                android:textSize="36sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_fullname_layout"
@@ -95,6 +103,16 @@
                     android:hint="Division" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Spinner
+                android:id="@+id/spinnerPerform"
+                android:layout_width="300sp"
+                android:layout_height="48dp"
+                android:layout_marginTop="30sp"
+                android:paddingVertical="15sp"
+                android:paddingHorizontal="0sp"
+                android:contentDescription="Performance"
+                android:background="@drawable/bg_spinner"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_phone_layout"
                 android:layout_width="300sp"
@@ -128,6 +146,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/nunito_bold"
+                android:backgroundTint="@color/Main_Blue"
                 android:text="Submit" />
         </LinearLayout>
     </ScrollView>

@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +37,8 @@ public class DetailActivityIntern extends AppCompatActivity {
 
     Integer id, idIntern, access;
     String url;
-    TextView txt_nama, txt_email, txt_notelp, txt_alamat, txt_aboutme, txt_project, txt_divisi;
-    Button btn_edit, btn_delete;
+    TextView txt_nama, txt_email, txt_notelp, txt_alamat, txt_aboutme,
+            txt_project, txt_divisi, txt_status;
     ConnectivityManager connectivityManager;
     ProgressDialog progressDialog;
 
@@ -68,22 +69,10 @@ public class DetailActivityIntern extends AppCompatActivity {
             url = Config.getDataDetailIntern;
         }else {
             url = Config.getDataDetailInternNonAdm;
-            btn_delete.setVisibility(View.INVISIBLE);
         }
 
         //load data berupa json kedalam activity
         loadData();
-
-        btn_delete.setOnClickListener(view -> {
-            //check internet apakah tersedia
-            if (connectivityManager.getActiveNetworkInfo() != null
-                    && connectivityManager.getActiveNetworkInfo().isAvailable()
-                    && connectivityManager.getActiveNetworkInfo().isConnected()) {
-                delete(idIntern.toString());
-            } else {
-                Toast.makeText(getApplicationContext() ,"No Internet Connection", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     private void loadData(){
@@ -100,7 +89,6 @@ public class DetailActivityIntern extends AppCompatActivity {
                     JSONArray arr = new JSONArray(response);
                     String temp = "";
 
-                    Log.e("Hasil :", response);
                     //mengisi setiap item dengan data yang tadi diambil
                     for(int i = 0; i < arr.length(); i++){
                         JSONObject data = arr.getJSONObject(i);
@@ -110,7 +98,9 @@ public class DetailActivityIntern extends AppCompatActivity {
                         txt_notelp.setText(data.getString("notelp"));
                         txt_alamat.setText(data.getString("alamat"));
                         txt_aboutme.setText(data.getString("about"));
+                        txt_status.setText(data.getString("performance"));
                         temp += "\n" + data.getString("namaproject");
+
                     }
                     txt_project.setText("Project\t: " + temp);
                 } catch (JSONException e) {
@@ -236,8 +226,6 @@ public class DetailActivityIntern extends AppCompatActivity {
         //komponen inisiasi
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         progressDialog = new ProgressDialog(DetailActivityIntern.this);
-        btn_edit = findViewById(R.id.detailintern_edit);
-        btn_delete = findViewById(R.id.detailintern_delete);
         txt_nama = findViewById(R.id.textViewNamaIntern);
         txt_email = findViewById(R.id.textViewEmailIntern);
         txt_notelp = findViewById(R.id.textViewNomorTelpon);
@@ -245,5 +233,6 @@ public class DetailActivityIntern extends AppCompatActivity {
         txt_aboutme = findViewById(R.id.textViewAboutMe);
         txt_project = findViewById(R.id.textViewNamaProjectIntern);
         txt_divisi = findViewById(R.id.textViewNamaDivisi);
+        txt_status = findViewById(R.id.textViewPerformance);
     }
 }

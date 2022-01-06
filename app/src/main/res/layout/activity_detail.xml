@@ -136,25 +136,6 @@
                         android:divider="@null"
                         android:clickable="false"/>
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/detailproj_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/linearLayout"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30sp"
-                    android:text="EDIT" />
-
-                <Button
-                    android:id="@+id/detailproj_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/detailproj_edit"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30sp"
-                    android:text="DELETE" />
-
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

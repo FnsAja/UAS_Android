@@ -39,8 +39,7 @@ public class DetailActivityProject extends AppCompatActivity {
 
     Integer id, idProj, access;
     String url;
-    TextView txt_nama, txt_namaIntern, txt_deskripsi;
-    Button btn_edit, btn_delete;
+    TextView txt_nama, txt_deskripsi, txt_start, txt_end;
     ConnectivityManager connectivityManager;
     Toolbar toolbar;
     ProgressDialog progressDialog;
@@ -71,27 +70,10 @@ public class DetailActivityProject extends AppCompatActivity {
         access = x.getIntExtra("access", 0);
 
         //membedakan antara akses admin dan non admin
-        if(access == 1){
-            url = Config.getDataDetail;
-        }else {
-            url = Config.getDataDetailNonAdm;
-            btn_edit.setVisibility(View.INVISIBLE);
-            btn_delete.setVisibility(View.INVISIBLE);
-        }
+        url = Config.getDataDetail;
 
         //load data berupa json kedalam activity
         loadData();
-
-        btn_delete.setOnClickListener(view -> {
-            //check internet apakah tersedia
-            if (connectivityManager.getActiveNetworkInfo() != null
-                    && connectivityManager.getActiveNetworkInfo().isAvailable()
-                    && connectivityManager.getActiveNetworkInfo().isConnected()) {
-                delete(idProj.toString());
-            } else {
-                Toast.makeText(getApplicationContext() ,"No Internet Connection", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     private void loadData(){
@@ -110,11 +92,12 @@ public class DetailActivityProject extends AppCompatActivity {
 
                     //mengisi setiap item dengan data yang tadi diambil
                     for (int i = 0; i < arr.length(); i++){
-                        Log.e("respons : ", response);
                         JSONObject data = arr.getJSONObject(i);
                         txt_nama.setText(data.getString("namaproj"));
                         //temp1 += data.getString("namaintern") + "\n Jobdesc :  " + data.getString("jobdesc") + "\n";
                         txt_deskripsi.setText(data.getString("deskripsi"));
+                        txt_start.setText(data.getString("startdate"));
+                        txt_end.setText(data.getString("enddate"));
                         modelIntern.add(new InternModel(data.getString("namaintern"), data.getString("divisiintern")));
                     }
                     //txt_namaIntern.setText(temp1);
@@ -244,10 +227,10 @@ public class DetailActivityProject extends AppCompatActivity {
         //komponen inisiasi
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         progressDialog = new ProgressDialog(DetailActivityProject.this);
-        btn_edit = findViewById(R.id.detailproj_edit);
-        btn_delete = findViewById(R.id.detailproj_delete);
         txt_nama = findViewById(R.id.textViewNamaProject);
         txt_deskripsi = findViewById(R.id.projectDescription);
         listViewIntern = findViewById(R.id.intern_listView);
+        txt_start = findViewById(R.id.startDate);
+        txt_end = findViewById(R.id.endDate);
     }
 }

@@ -1,16 +1,24 @@
 package com.example.internship;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,6 +30,8 @@ import com.example.internship.config.Config;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +55,44 @@ public class RegisterActivity extends AppCompatActivity {
 
         //inisialisasi semua komponen
         init();
+
+        //inisialisasi array performance
+        String[] performance = new String[]{
+                "Choose Performance", "Bad", "Good",
+                "Very Good", "Excellent"
+        };
+
+        //arraylist spinner
+        ArrayList<String> spinnerArray = new ArrayList<String>(Arrays.asList(performance));
+
+        //spinner Arrayadapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, spinnerArray){
+            @Override
+            public boolean isEnabled(int position) {
+                //menonaktifkan pilihan pertama (choose performance)
+                if(position == 0){
+                    return false;
+                }
+                else
+                    return true;
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+                //mengubah warna text spinner
+                if(position == 0){
+                    textView.setTextColor(Color.GRAY);
+                }
+                else
+                    textView.setTextColor(Color.BLACK);
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        txt_status.setAdapter(spinnerArrayAdapter);
 
         //mengambil data dari halaman sebelumnya
         Intent getData = getIntent();

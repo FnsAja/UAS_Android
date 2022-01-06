@@ -8,6 +8,12 @@
     android:orientation="vertical"
     tools:context=".RegisterActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/Main_Blue"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,9 +28,11 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80sp"
+                android:fontFamily="@font/nunito_bold"
+                android:layout_marginTop="60sp"
+                android:textColor="@color/Main_Blue"
                 android:text="Edit Project"
-                android:textSize="42sp" />
+                android:textSize="36sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_projname_layout"
@@ -73,7 +81,11 @@
                 android:id="@+id/edit_btn_proj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40sp"
+                android:layout_marginTop="30sp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/Main_Blue"
+                android:fontFamily="@font/nunito_bold"
+                android:textColor="@color/Pure_White"
                 android:text="Edit Proj" />
 
         </LinearLayout>

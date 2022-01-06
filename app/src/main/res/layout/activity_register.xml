@@ -8,6 +8,12 @@
     android:orientation="vertical"
     tools:context=".RegisterActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/Main_Blue"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -114,12 +120,12 @@
             <Spinner
                 android:id="@+id/regist_status_spinner"
                 android:layout_width="300sp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="30sp"
-                android:entries="@array/performance"
                 android:paddingVertical="15sp"
-                android:paddingHorizontal="9sp"
-                android:background="#e0e0e0"/>
+                android:paddingHorizontal="0sp"
+                android:contentDescription="Performance"
+                android:background="@drawable/bg_spinner"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/regist_pass_layout"
@@ -157,7 +163,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
-                android:backgroundTint="@color/Secondary_Blue"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/Main_Blue"
                 android:fontFamily="@font/nunito_bold"
                 android:text="Register"
                 android:textColor="@color/Pure_White" />

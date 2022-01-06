@@ -25,16 +25,20 @@
         </activity>
         <activity
             android:name=".EditProjectActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
             android:name=".EditInternActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
             android:name=".RegisterProject1"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
             android:name=".RegisterProject"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
             android:name=".DetailActivityIntern"
             android:exported="true" />
@@ -56,10 +60,6 @@
             android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
