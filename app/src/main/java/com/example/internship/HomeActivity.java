@@ -44,7 +44,6 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
 
     Integer id, access;
     String url;
-    Button btn_logout, btn_intern, btn_admin;
 
     private static final String TAG_ERROR = "error";
 
