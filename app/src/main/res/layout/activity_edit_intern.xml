@@ -125,7 +125,6 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:hint="Phone"/>
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
