@@ -14,17 +14,43 @@
         <entry key="..\:/Alfonso's Personal File/Kuliah/Semester 5/Pemrograman Android/UAS/Internship/app/src/main/res/layout/single_intern.xml" value="0.1" />
         <entry key="..\:/Alfonso's Personal File/Kuliah/Semester 5/Pemrograman Android/UAS/Internship/app/src/main/res/layout/single_project.xml" value="0.20416666666666666" />
         <entry key="..\:/Alfonso's Personal File/Kuliah/Semester 5/Pemrograman Android/UAS/Internship/app/src/main/res/layout/spinner_item.xml" value="0.20416666666666666" />
-        <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/activity_detail.xml" value="0.25" />
-        <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/activity_detail1.xml" value="0.18206521739130435" />
-        <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/activity_edit_intern.xml" value="0.17300724637681159" />
-        <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/activity_edit_project.xml" value="0.17300724637681159" />
         <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/activity_home1.xml" value="0.18659420289855072" />
         <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/activity_register.xml" value="0.18659420289855072" />
-        <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/activity_register_project.xml" value="0.17300724637681159" />
         <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/activity_splash.xml" value="0.21" />
-        <entry key="..\:/Kuliah/SEM_5/Materi/Mobile Programming/Application/UAS/app/src/main/res/layout/single_intern.xml" value="0.22" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/drawable/bg_spinner.xml" value="0.3828125" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/drawable/bg_tombol.xml" value="0.3828125" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.3828125" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/drawable/selector.xml" value="0.22135416666666666" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_detail.xml" value="0.33" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_detail1.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_edit_intern.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_edit_project.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_home.xml" value="0.33" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_home1.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_home2.xml" value="0.25" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_register_project.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_register_project1.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/single_intern.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/layout/single_intern_listview.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/menu/menu_navigation.xml" value="0.33" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/Aplikasi MyIntern/MyIntern/app/src/main/res/menu/option_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/drawable/selector.xml" value="0.3828125" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/layout/activity_detail.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/layout/activity_home.xml" value="0.2957427536231884" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/layout/activity_home1.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/layout/activity_home2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/layout/activity_intern.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/layout/activity_login.xml" value="0.2957427536231884" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/layout/activity_splash.xml" value="0.2957427536231884" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/layout/single_intern.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/layout/single_project.xml" value="0.2957427536231884" />
+        <entry key="..\:/Kuliah/Semester 5/UAS/Mobile/MyIntern/app/src/main/res/menu/menu_navigation.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
@@ -33,12 +59,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.22" />
-      </ProjectState>
-    </option>
   </component>
 </project>
