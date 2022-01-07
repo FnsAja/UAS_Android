@@ -10,12 +10,15 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/Unset_Grey"/>
+        android:layout_height="wrap_content"
+        android:background="@color/Main_Blue"
+        android:minHeight="?attr/actionBarSize"
+        app:title="My Intern"
+        app:titleTextColor="@color/Pure_White" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_below="@id/toolbar">
 
         <RelativeLayout
@@ -36,16 +39,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:textSize="30sp"
                     android:fontFamily="@font/nunito_bold"
-                    android:textColor="@color/black"
-                    android:text="Build Colony on Mars"/>
+                    android:text="Build Colony on Mars"
+                    android:textColor="@color/Main_Blue"
+                    android:textSize="30sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -55,71 +58,84 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
                             android:fontFamily="@font/nunito_semibold"
-                            android:textColor="@color/black"
-                            android:text="Start Date :"/>
+                            android:text="Start Date :"
+                            android:textColor="@color/Main_Blue"
+                            android:textSize="16sp" />
+
                         <TextView
                             android:id="@+id/startDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
                             android:fontFamily="@font/nunito"
-                            android:textColor="@color/black"
-                            android:text="1 Desember 2021"/>
+                            android:text="1 Desember 2021"
+                            android:textColor="@color/Secondary_Grey"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginStart="50dp">
+                        android:layout_marginStart="50dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
                             android:fontFamily="@font/nunito_semibold"
-                            android:textColor="@color/black"
-                            android:text="End Date :"/>
+                            android:text="End Date :"
+                            android:textColor="@color/Main_Blue"
+                            android:textSize="16sp" />
+
                         <TextView
                             android:id="@+id/endDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
                             android:fontFamily="@font/nunito"
-                            android:textColor="@color/black"
-                            android:text="1 Desember 2021"/>
+                            android:text="1 Desember 2021"
+                            android:textColor="@color/Secondary_Grey"
+                            android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/nunito"
-                    android:textColor="@color/black"
-                    android:text="Project Description :"/>
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="Project Description :"
+                    android:textColor="@color/Main_Blue"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/projectDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/nunito"
-                    android:textColor="@color/black"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed sit vulputate nibh nulla nunc, purus in platea. Eu in lectus vel diam, euismod. Auctor lorem tempor, viverra arcu blandit. Felis id malesuada vulputate dolor. Luctus quis amet quis ut non vulputate arcu id. Orci dui faucibus imperdiet mi viverra pulvinar. :"
-                    android:layout_marginBottom="10dp"/>
+                    android:textColor="@color/Secondary_Grey"
+                    android:textSize="14sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/nunito"
-                    android:textColor="@color/black"
-                    android:text="Interns Who's Working on It :"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:text="Interns Who's Working on It :"
+                        android:textColor="@color/Main_Blue"
+                        android:textSize="16sp" />
 
+                    <ListView
+                        android:id="@+id/intern_listView"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:divider="@null"
+                        android:clickable="false"/>
+                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

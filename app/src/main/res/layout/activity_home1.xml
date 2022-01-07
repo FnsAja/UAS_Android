@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="@color/Unset_Grey" />
+        android:background="@color/Main_Blue" />
 
     <TextView
         android:id="@+id/textViewHello"
@@ -40,12 +40,23 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:layout_width="349dp"
+        android:layout_height="516dp"
         android:layout_below="@id/textViewDesc"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         tools:listitem="@layout/single_intern" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="@color/Main_Blue"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="28dp"
+        android:src="@drawable/ic_baseline_add_24"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

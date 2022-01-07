@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.internship.config.Config;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,14 +35,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterActivity extends AppCompatActivity {
+public class EditInternActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
     ConnectivityManager connectivityManager;
-    EditText txt_division, txt_phone, txt_address, txt_fullname, txt_email, txt_username, txt_password, txt_confirm_password;
-    Button btn_register;
+    EditText txt_division, txt_phone, txt_about, txt_address,
+            txt_fullname, txt_email, txt_username;
     Spinner txt_status;
-    Integer id, access;
+    Button btn_submit;
+    Integer id, access, idIntern;
 
     private static final String TAG_ERROR = "error";
     private static final String TAG_SUCCESS = "success";
@@ -51,19 +52,19 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_edit_intern);
 
         //inisialisasi semua komponen
         init();
 
         //inisialisasi array performance
-        String[] performance = new String[]{
+        String[] performanceItem = new String[]{
                 "Choose Performance", "Bad", "Good",
                 "Very Good", "Excellent"
         };
 
         //arraylist spinner
-        ArrayList<String> spinnerArray = new ArrayList<String>(Arrays.asList(performance));
+        ArrayList<String> spinnerArray = new ArrayList<String>(Arrays.asList(performanceItem));
 
         //spinner Arrayadapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,
@@ -94,59 +95,121 @@ public class RegisterActivity extends AppCompatActivity {
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         txt_status.setAdapter(spinnerArrayAdapter);
 
+        //mengeset edit text dengan data yang sudah ada
+        setText();
+
         //mengambil data dari halaman sebelumnya
         Intent getData = getIntent();
         id = getData.getIntExtra("id", 0);
         access = getData.getIntExtra("access", 0);
+        idIntern = getData.getIntExtra("idIntern", -1);
 
-        btn_register.setOnClickListener(view -> {
+        btn_submit.setOnClickListener(view -> {
             String username = txt_username.getText().toString();
-            String password = txt_password.getText().toString();
-            String confirm_password = txt_confirm_password.getText().toString();
             String email = txt_email.getText().toString();
             String fullname = txt_fullname.getText().toString();
             String address = txt_address.getText().toString();
             String division = txt_division.getText().toString();
-            String status = txt_status.getSelectedItem().toString();
             String phone = txt_phone.getText().toString();
+            String about = txt_about.getText().toString();
+            String performance = txt_status.getSelectedItem().toString();
 
             //check apakah internet tersedia
             if (connectivityManager.getActiveNetworkInfo() != null
                     && connectivityManager.getActiveNetworkInfo().isAvailable()
                     && connectivityManager.getActiveNetworkInfo().isConnected()) {
-                checkRegister(username, password, confirm_password, email, fullname, address, division, status, phone);
+                update(username, email, fullname, address, division, performance, phone, about);
             } else {
                 Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void checkRegister(final String username, final String password, final String confirm_password, final String email, final String fullname, final String address, final String division, final String status, final String phone) {
-        progressDialog.setMessage("Register ...");
+    private void setText(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.getDataInternNonAdm, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressDialog.cancel();
+                try {
+                    JSONArray arr = new JSONArray(response);
+                    JSONObject jsonObject = arr.getJSONObject(arr.length()-1);
+                    txt_username.setText(jsonObject.getString("username"));
+                    txt_email.setText(jsonObject.getString("email"));
+                    txt_fullname.setText(jsonObject.getString("nama"));
+                    txt_address.setText(jsonObject.getString("alamat"));
+                    txt_division.setText(jsonObject.getString("divisi"));
+                    int position;
+                    switch (jsonObject.getString("performance")){
+                        case "Bad" :
+                            position = 1;
+                            break;
+                        case "Good" :
+                            position = 2;
+                            break;
+                        case "Very Good" :
+                            position = 3;
+                            break;
+                        case "Excellent" :
+                            position = 4;
+                            break;
+                        default :
+                            position = 0;
+                    }
+                    txt_status.setSelection(position);
+                    txt_phone.setText(jsonObject.getString("notelp"));
+                    txt_about.setText(jsonObject.getString("about"));
+                } catch (JSONException e) {
+                    //JSON exception
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //VOLLEY exception
+                progressDialog.cancel();
+                Log.e(TAG_ERROR, error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                //masukan data yang akan di post disini berupa string
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("iduser", idIntern.toString());
+
+                return params;
+            }
+        };
+        //menambahkan ke request queue untuk dipost ke alamat php yang dituju
+        Controller.getInstance().addToRequestQueue(stringRequest);
+    }
+
+    private void update(final String username, final String email, final String fullname, final String address, final String division, final String performance, final String phone, final String about) {
+        progressDialog.setMessage("Updating ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.registerPhp, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.editIntern, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.cancel();
                 try {
                     //ambil data berupa JSON object
-                    JSONObject jObj = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response);
 
                     //success disini merupakan TAG pembeda antara operasi yang sukses atau tidak
                     //jika 1 maka operasi sukses, jika 0 maka gagal
-                    Integer success = jObj.getInt(TAG_SUCCESS);
+                    Integer success = jsonObject.getInt(TAG_SUCCESS);
                     if (success == 1) {
-                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                        Toast.makeText(getApplicationContext(), jsonObject.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(EditInternActivity.this, Home1Activity.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
                         startActivity(intent);
                         finish();
                     } else {
                         //disini ditampilkan message kegagalan
-                        Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), jsonObject.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     // JSON exception
@@ -165,15 +228,15 @@ public class RegisterActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 //masukan data yang akan di post disini berupa string
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("idIntern", idIntern.toString());
                 params.put("fullname", fullname);
                 params.put("username", username);
-                params.put("password", password);
-                params.put("confirm_password", confirm_password);
                 params.put("address", address);
                 params.put("email", email);
                 params.put("phone", phone);
+                params.put("performance", performance);
                 params.put("division", division);
-                params.put("status", status);
+                params.put("aboutme", about);
 
                 return params;
             }
@@ -185,16 +248,15 @@ public class RegisterActivity extends AppCompatActivity {
     public void init(){
         //inisiasi komponen
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        btn_register = (Button) findViewById(R.id.regist_btn_register);
-        txt_fullname = (EditText) findViewById(R.id.regist_fullname_text);
-        txt_username = (EditText) findViewById(R.id.regist_uname_text);
-        txt_email = (EditText) findViewById(R.id.regist_email_text);
-        txt_password = (EditText) findViewById(R.id.regist_pass_text);
-        txt_confirm_password = (EditText) findViewById(R.id.regist_confpass_text);
-        txt_address = (EditText) findViewById(R.id.regist_address_text);
-        txt_division = (EditText) findViewById(R.id.regist_div_text);
-        txt_phone = (EditText) findViewById(R.id.regist_phone_text);
-        txt_status = (Spinner) findViewById(R.id.regist_status_spinner);
-        progressDialog = new ProgressDialog(RegisterActivity.this);
+        progressDialog = new ProgressDialog(EditInternActivity.this);
+        btn_submit = findViewById(R.id.edit_btn_submit);
+        txt_fullname = findViewById(R.id.edit_fullname_text);
+        txt_email = findViewById(R.id.edit_email_text);
+        txt_username = findViewById(R.id.edit_uname_text);
+        txt_address = findViewById(R.id.edit_address_text);
+        txt_division = findViewById(R.id.edit_div_text);
+        txt_phone = findViewById(R.id.edit_phone_text);
+        txt_about = findViewById(R.id.edit_about_text);
+        txt_status = findViewById(R.id.spinnerPerform);
     }
 }
