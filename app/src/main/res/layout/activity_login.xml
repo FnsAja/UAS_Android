@@ -79,11 +79,11 @@
 
     <Button
         android:id="@+id/login_btn_login"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginVertical="70sp"
-        android:backgroundTint="@color/Main_Blue"
+        android:layout_marginVertical="50sp"
+        android:background="@drawable/bg_tombol"
         android:fontFamily="@font/nunito_bold"
         android:text="login"
         android:textColor="@color/Pure_White" />
@@ -93,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginTop="60sp"
+        android:layout_marginTop="80sp"
         android:fontFamily="@font/nunito_bold"
         android:text="Made By Kelompok 1"
         android:textColor="@color/Main_Blue" />

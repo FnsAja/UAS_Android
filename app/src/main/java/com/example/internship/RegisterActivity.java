@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
     ConnectivityManager connectivityManager;
-    EditText txt_division, txt_phone, txt_address, txt_fullname, txt_email, txt_username, txt_password, txt_confirm_password;
+    EditText txt_about, txt_division, txt_phone, txt_address, txt_fullname, txt_email, txt_username, txt_password, txt_confirm_password;
     Button btn_register;
     Spinner txt_status;
     Integer id, access;
@@ -109,19 +109,20 @@ public class RegisterActivity extends AppCompatActivity {
             String division = txt_division.getText().toString();
             String status = txt_status.getSelectedItem().toString();
             String phone = txt_phone.getText().toString();
+            String about = txt_about.getText().toString();
 
             //check apakah internet tersedia
             if (connectivityManager.getActiveNetworkInfo() != null
                     && connectivityManager.getActiveNetworkInfo().isAvailable()
                     && connectivityManager.getActiveNetworkInfo().isConnected()) {
-                checkRegister(username, password, confirm_password, email, fullname, address, division, status, phone);
+                checkRegister(username, password, confirm_password, email, fullname, address, division, status, phone, about);
             } else {
                 Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void checkRegister(final String username, final String password, final String confirm_password, final String email, final String fullname, final String address, final String division, final String status, final String phone) {
+    private void checkRegister(final String username, final String password, final String confirm_password, final String email, final String fullname, final String address, final String division, final String status, final String phone, final String about) {
         progressDialog.setMessage("Register ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -174,6 +175,7 @@ public class RegisterActivity extends AppCompatActivity {
                 params.put("phone", phone);
                 params.put("division", division);
                 params.put("status", status);
+                params.put("about", about);
 
                 return params;
             }
@@ -195,6 +197,7 @@ public class RegisterActivity extends AppCompatActivity {
         txt_division = (EditText) findViewById(R.id.regist_div_text);
         txt_phone = (EditText) findViewById(R.id.regist_phone_text);
         txt_status = (Spinner) findViewById(R.id.regist_status_spinner);
+        txt_about = (EditText) findViewById(R.id.regist_about_text);
         progressDialog = new ProgressDialog(RegisterActivity.this);
     }
 }

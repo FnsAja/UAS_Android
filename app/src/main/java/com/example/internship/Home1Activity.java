@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -39,10 +40,10 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
     FloatingActionButton floatingActionButton;
     ArrayList<User> user = new ArrayList<>();
     ArrayList<Integer> idIntern = new ArrayList<>();
+    TextView textViewHello;
 
     Integer id, access;
     String url;
-    Button btn_logout, btn_project, btn_admin;
 
     private static final String TAG_ERROR = "error";
 
@@ -132,6 +133,7 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
                         usr.setEmail(data.getString("email"));
                         user.add(usr);
                         idIntern.add(data.getInt("id"));
+                        textViewHello.setText("Hello, " + data.getString("nama") + "!");
                     }
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
@@ -172,6 +174,7 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
 
     public void init(){
         //komponen inisiasi
+        textViewHello = findViewById(R.id.textViewHello);
         recyclerView = findViewById(R.id.recyclerView);
         progressDialog = new ProgressDialog(Home1Activity.this);
         layoutManager = new LinearLayoutManager(Home1Activity.this, LinearLayoutManager.VERTICAL, false);

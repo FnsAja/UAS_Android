@@ -117,6 +117,21 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/regist_about_layout"
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/regist_about_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:hint="About" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Spinner
                 android:id="@+id/regist_status_spinner"
                 android:layout_width="300sp"
@@ -160,11 +175,11 @@
 
             <Button
                 android:id="@+id/regist_btn_register"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/Main_Blue"
+                android:background="@drawable/bg_tombol"
                 android:fontFamily="@font/nunito_bold"
                 android:text="Register"
                 android:textColor="@color/Pure_White" />

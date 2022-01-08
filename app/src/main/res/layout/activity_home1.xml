@@ -16,14 +16,14 @@
         android:id="@+id/textViewHello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello, Jean Doe!"
-        android:fontFamily="@font/nunito_bold"
-        android:textSize="28sp"
-        android:textColor="@color/Main_Blue"
-        android:layout_marginTop="30dp"
+        android:layout_below="@id/toolbar"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_below="@id/toolbar"/>
+        android:fontFamily="@font/nunito_bold"
+        android:text="Hello, Jean Doe!"
+        android:textColor="@color/Main_Blue"
+        android:textSize="28sp" />
     <TextView
         android:id="@+id/textViewDesc"
         android:layout_width="wrap_content"

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
     FloatingActionButton floatingActionButton;
     ArrayList<Model> model = new ArrayList<>();
     ArrayList<Integer> idProj = new ArrayList<>();
+    TextView textViewHello;
 
     Integer id, access;
     String url;
@@ -136,6 +138,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
                             md.setNamaProject(data.getString("namaproject"));
                             model.add(md);
                             idProj.add(data.getInt("idproject"));
+                            textViewHello.setText("Hello, " + data.getString("nama") + "!");
                         }
                     }
                     adapter.notifyDataSetChanged();
@@ -177,6 +180,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
 
     public void init(){
         //komponen inisiasi
+        textViewHello = findViewById(R.id.textViewHello);
         recyclerView = findViewById(R.id.recyclerView);
         progressDialog = new ProgressDialog(HomeActivity.this);
         layoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
