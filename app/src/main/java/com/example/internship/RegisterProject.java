@@ -44,7 +44,7 @@ public class RegisterProject extends AppCompatActivity {
     Button btn_register;
     ProgressDialog progressDialog;
     Integer id, access;
-    String ProjName, ProjDesc;
+    String ProjName, ProjDesc, fullname;
 
     private static final String TAG_ERROR = "error";
     private static final String TAG_SUCCESS = "success";
@@ -62,6 +62,7 @@ public class RegisterProject extends AppCompatActivity {
         Intent x = getIntent();
         id = x.getIntExtra("id", 0);
         access = x.getIntExtra("access", 0);
+        fullname = x.getStringExtra("fullname");
 
         btn_register.setOnClickListener(view -> {
             ProjName = projName.getText().toString();
@@ -139,6 +140,7 @@ public class RegisterProject extends AppCompatActivity {
                         Intent intent = new Intent(RegisterProject.this, RegisterProject1.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
+                        intent.putExtra("fullname", fullname);
                         startActivity(intent);
                         finish();
                     } else {

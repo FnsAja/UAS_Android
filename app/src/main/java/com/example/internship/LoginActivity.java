@@ -84,12 +84,14 @@ public class LoginActivity extends AppCompatActivity {
                         String username = jObj.getString("username");
                         Integer id = jObj.getInt("id");
                         Integer access = jObj.getInt("access");
+                        String fullname = jObj.getString("fullname");
                         Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.putExtra("username", username);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
+                        intent.putExtra("fullname", fullname);
                         finish();
                         startActivity(intent);
                     } else {

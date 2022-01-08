@@ -43,7 +43,7 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
     TextView textViewHello;
 
     Integer id, access;
-    String url;
+    String url, fullname;
 
     private static final String TAG_ERROR = "error";
 
@@ -67,6 +67,7 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
                         Intent intent = new Intent(Home1Activity.this, HomeActivity.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
+                        intent.putExtra("fullname", fullname);
                         startActivity(intent);
                         return true;
                     case R.id.intern:
@@ -90,6 +91,7 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
                 Intent intent = new Intent(Home1Activity.this, RegisterActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtra("access", access);
+                intent.putExtra("fullname", fullname);
                 startActivity(intent);
             }
         });
@@ -98,6 +100,10 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
         Intent x = getIntent();
         id = x.getIntExtra("id", 0);
         access = x.getIntExtra("access", 0);
+        fullname = x.getStringExtra("fullname");
+
+        //set textHellow
+        textViewHello.setText("Hello, " + fullname + "!");
 
         //membedakan antara akses admin dan non admin
         if(access == 1){
@@ -133,8 +139,8 @@ public class Home1Activity extends AppCompatActivity implements ProjectAdapter.o
                         usr.setEmail(data.getString("email"));
                         user.add(usr);
                         idIntern.add(data.getInt("id"));
-                        textViewHello.setText("Hello, " + data.getString("nama") + "!");
                     }
+
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     //JSON exception

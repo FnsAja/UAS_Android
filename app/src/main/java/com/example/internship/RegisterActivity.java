@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,10 +38,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
     ConnectivityManager connectivityManager;
-    EditText txt_division, txt_phone, txt_address, txt_fullname, txt_email, txt_username, txt_password, txt_confirm_password;
+    EditText txt_division, txt_phone, txt_address, txt_fullname, txt_email,
+            txt_username, txt_password, txt_confirm_password, txt_about;
     Button btn_register;
     Spinner txt_status;
     Integer id, access;
+    String fullname1;
 
     private static final String TAG_ERROR = "error";
     private static final String TAG_SUCCESS = "success";
@@ -98,6 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
         Intent getData = getIntent();
         id = getData.getIntExtra("id", 0);
         access = getData.getIntExtra("access", 0);
+        fullname1 = getData.getStringExtra("fullname");
 
         btn_register.setOnClickListener(view -> {
             String username = txt_username.getText().toString();
@@ -107,21 +109,22 @@ public class RegisterActivity extends AppCompatActivity {
             String fullname = txt_fullname.getText().toString();
             String address = txt_address.getText().toString();
             String division = txt_division.getText().toString();
-            String status = txt_status.getSelectedItem().toString();
+            String performance1 = txt_status.getSelectedItem().toString();
             String phone = txt_phone.getText().toString();
+            String about = txt_about.getText().toString();
 
             //check apakah internet tersedia
             if (connectivityManager.getActiveNetworkInfo() != null
                     && connectivityManager.getActiveNetworkInfo().isAvailable()
                     && connectivityManager.getActiveNetworkInfo().isConnected()) {
-                checkRegister(username, password, confirm_password, email, fullname, address, division, status, phone);
+                checkRegister(username, password, confirm_password, email, fullname, address, division, performance1, phone, about);
             } else {
                 Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void checkRegister(final String username, final String password, final String confirm_password, final String email, final String fullname, final String address, final String division, final String status, final String phone) {
+    private void checkRegister(final String username, final String password, final String confirm_password, final String email, final String fullname, final String address, final String division, final String performance, final String phone, final String about) {
         progressDialog.setMessage("Register ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -139,9 +142,10 @@ public class RegisterActivity extends AppCompatActivity {
                     Integer success = jObj.getInt(TAG_SUCCESS);
                     if (success == 1) {
                         Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(RegisterActivity.this, Home1Activity.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
+                        intent.putExtra("fullname", fullname1);
                         startActivity(intent);
                         finish();
                     } else {
@@ -172,9 +176,9 @@ public class RegisterActivity extends AppCompatActivity {
                 params.put("address", address);
                 params.put("email", email);
                 params.put("phone", phone);
+                params.put("about", about);
                 params.put("division", division);
-                params.put("status", status);
-
+                params.put("performance", performance);
                 return params;
             }
         };
@@ -194,6 +198,7 @@ public class RegisterActivity extends AppCompatActivity {
         txt_address = (EditText) findViewById(R.id.regist_address_text);
         txt_division = (EditText) findViewById(R.id.regist_div_text);
         txt_phone = (EditText) findViewById(R.id.regist_phone_text);
+        txt_about = findViewById(R.id.regist_about_text);
         txt_status = (Spinner) findViewById(R.id.regist_status_spinner);
         progressDialog = new ProgressDialog(RegisterActivity.this);
     }

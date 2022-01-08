@@ -42,7 +42,7 @@ public class RegisterProject1 extends AppCompatActivity {
     Button btn_register, btn_complete;
     EditText jobDesc;
     Spinner spinner;
-    String jobdesc;
+    String jobdesc, fullname;
     Integer id, access, idIntern;
 
     private static final String TAG_ERROR = "error";
@@ -61,6 +61,7 @@ public class RegisterProject1 extends AppCompatActivity {
         Intent getData = getIntent();
         id = getData.getIntExtra("id", 0);
         access = getData.getIntExtra("access", 0);
+        fullname = getData.getStringExtra("fullname");
 
         //mengeset spinner dengan nama user
         loadSpinner();
@@ -83,6 +84,7 @@ public class RegisterProject1 extends AppCompatActivity {
             Intent intent = new Intent(RegisterProject1.this, HomeActivity.class);
             intent.putExtra("id", id);
             intent.putExtra("access", access);
+            intent.putExtra("fullname", fullname);
             startActivity(intent);
             finish();
         });
