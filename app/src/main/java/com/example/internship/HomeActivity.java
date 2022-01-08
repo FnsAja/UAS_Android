@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
     TextView textViewHello;
 
     Integer id, access;
-    String url;
+    String url, fullname;
     Button btn_logout, btn_intern, btn_admin;
 
     private static final String TAG_ERROR = "error";
@@ -72,6 +72,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
                         Intent intent = new Intent(HomeActivity.this, Home1Activity.class);
                         intent.putExtra("id", id);
                         intent.putExtra("access", access);
+                        intent.putExtra("fullname",fullname);
                         overridePendingTransition(0,0);
                         startActivity(intent);
                         return true;
@@ -102,6 +103,10 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
         Intent x = getIntent();
         id = x.getIntExtra("id", 0);
         access = x.getIntExtra("access", 0);
+        fullname = x.getStringExtra("fullname");
+
+        //merubah welcome message
+        textViewHello.setText("Welcome, "+fullname+" !");
 
         //membedakan antara akses admin dan non admin
         if(access == 1){
@@ -138,7 +143,7 @@ public class HomeActivity extends AppCompatActivity implements ProjectAdapter.on
                             md.setNamaProject(data.getString("namaproject"));
                             model.add(md);
                             idProj.add(data.getInt("idproject"));
-                            textViewHello.setText("Hello, " + data.getString("nama") + "!");
+//                            textViewHello.setText("Hello, " + data.getString("nama") + "!");
                         }
                     }
                     adapter.notifyDataSetChanged();
